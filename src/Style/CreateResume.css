@@ -1,0 +1,67 @@
+.heading h1 {
+  font-family: var(--font-heading);
+  font-weight: bold;
+}
+
+.paragraph p {
+  font-family: var(--font-heading);
+  font-size: 17px;
+  font-weight: 500;
+  color: black;
+
+}
+
+.CreateResume {
+  margin-top: 10px;
+}
+
+.create-btn {
+  width: 50%;
+  height: auto;
+  padding-top: 15px;
+}
+
+.create-btn button {
+  width: auto;
+  outline: none;
+  border: none;
+  background-color: #ff6361;
+  color: #ffff;
+  padding: 16px;
+  font-family: var(--font-heading);
+  font-weight: bold;
+  border-radius: 5px;
+  transition: all 0.3s ease;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+}
+
+.create-btn button:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+}
+
+.video-wrapper {
+  text-align: center;
+}
+
+.video-wrapper img {
+  max-width: 100%;
+  height: auto;
+  animation: float 3s ease-in-out infinite;
+  transition: transform 0.3s ease;
+}
+
+/* Floating Animation */
+@keyframes float {
+  0% {
+    transform: translateY(0px);
+  }
+
+  50% {
+    transform: translateY(-10px);
+  }
+
+  100% {
+    transform: translateY(0px);
+  }
+}

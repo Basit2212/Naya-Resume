@@ -1,0 +1,23 @@
+.footer {
+  background-color: #111;
+  color: #fff;
+  font-family: var(--font-heading);
+  position: relative;
+  z-index: 10;
+}
+
+.footer p {
+  margin: 0;
+  font-size: 14px;
+}
+
+.footer-icon {
+  color: #fff;
+  font-size: 20px;
+  transition: transform 0.3s ease, color 0.3s ease;
+}
+
+.footer-icon:hover {
+  color: #ff6361;
+  transform: translateY(-3px);
+}
