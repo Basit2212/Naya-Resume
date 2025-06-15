@@ -30,6 +30,7 @@
 
 .about-section h3 {
     font-weight: bold;
+    font-family: var(--font-heading);
     color: #e55957;
     font-size: 1.6rem;
     margin-bottom: 10px;
@@ -40,6 +41,7 @@
     font-size: 1.1rem;
     color: #444;
     line-height: 1.8;
+    font-family: var(--font-heading);
 }
 
 .about-section ul {
@@ -53,6 +55,7 @@
 
 .about-section ul li {
     margin-bottom: 10px;
+    font-family: var(--font-heading);
 }
 
 .about-section a {

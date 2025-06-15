@@ -17,3 +17,6 @@ body, html {
   box-sizing: border-box;
   overflow-x: hidden;
 }
+input{
+  font-family: 'Nunito';
+}

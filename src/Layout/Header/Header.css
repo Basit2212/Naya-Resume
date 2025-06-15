@@ -29,7 +29,7 @@
 
 .nav-link {
   margin: 0 15px;
-  font-weight: 500;
+  font-weight: 700;
   font-size: 17px;
   text-transform: uppercase;
   color: #ffffff;
@@ -37,6 +37,9 @@
   transition: color 0.3s ease;
 }
 
+.nav-link.active{
+  color: #ff6361;
+}
 .nav-link:hover {
   color: #ff6361;
 }

@@ -14,7 +14,7 @@ function Header() {
         <Navbar.Collapse id="basic-navbar-nav">
           <div className="m-auto d-flex gap-4">
             <NavLink to="/" className="nav-link">Home</NavLink>
-            <NavLink to="/create" className="nav-link">Resume</NavLink>
+            <NavLink to="/resume" className="nav-link">Resume</NavLink>
             <NavLink to="/about" className="nav-link">About</NavLink>
             <NavLink to="/contact" className="nav-link">Contact</NavLink>
           </div>

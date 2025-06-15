@@ -8,7 +8,7 @@ const CreateResumeSection = () => {
   const navigate = useNavigate();
 
   const handleClick = () => {
-    navigate('/create'); // Replace '/create' with your target route
+    navigate('/resume'); // Replace '/create' with your target route
   };
 
   return (

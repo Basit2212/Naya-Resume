@@ -8,6 +8,7 @@ import Header from './Layout/Header/Header';
 import Footer from './Layout/Footer/Footer'
 import Contact from './Pages/Contact';
 import About from './Pages/About';
+import ResumePage from './Pages/ResumePage';
 
 
 function App() {
@@ -20,6 +21,7 @@ function App() {
           <Route path="/" element={<Home/>} />
           <Route path="/about" element={<About/>}  />
           <Route path="/contact" element={<Contact/>}/>
+          <Route path="/resume" element={<ResumePage/>}/>
   
         </Routes>
       </main>
