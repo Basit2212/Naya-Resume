@@ -28,18 +28,21 @@ const EducationInfo = ({ formData, setFormData }) => {
                 name="institution"
                 placeholder="University / School Name"
                 className="form-control"
+                value={formData.educationInfo?.institution || ""}
                 onChange={handleChange}
               />
               <input
                 name="degree"
                 placeholder="Degree or Qualification"
                 className="form-control"
+                value={formData.educationInfo?.degree || ""}
                 onChange={handleChange}
               />
               <input
                 name="field"
                 placeholder="Field of Study"
                 className="form-control"
+                value={formData.educationInfo?.field || ""}
                 onChange={handleChange}
               />
               <div className="d-flex gap-3">
@@ -47,6 +50,7 @@ const EducationInfo = ({ formData, setFormData }) => {
                   name="startYear"
                   placeholder="Start Year"
                   className="form-control"
+                  value={formData.educationInfo?.startYear || ""}
                   type="number"
                   onChange={handleChange}
                 />
@@ -54,6 +58,7 @@ const EducationInfo = ({ formData, setFormData }) => {
                   name="endYear"
                   placeholder="End Year"
                   className="form-control"
+                  value={formData.educationInfo?.endYear || ""}
                   type="number"
                   onChange={handleChange}
                 />
@@ -62,12 +67,14 @@ const EducationInfo = ({ formData, setFormData }) => {
                 name="grade"
                 placeholder="Grade / CGPA (optional)"
                 className="form-control"
+                value={formData.educationInfo?.grade || ""}
                 onChange={handleChange}
               />
               <input
                 name="location"
                 placeholder="Location (optional)"
                 className="form-control"
+                value={formData.educationInfo?.location || ""}
                 onChange={handleChange}
               />
             </div>
