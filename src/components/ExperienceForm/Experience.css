@@ -1,0 +1,12 @@
+.delete-btn{
+    width: 10%;
+    /* padding: 14px; */
+    background: #ff6361;
+    color: #ffff;
+    border: none;
+    border-radius: 10px;
+    font-size: 20px;
+    cursor: pointer;
+    box-shadow: 0 4px 12px rgba(255, 99, 97, 0.3);
+    transition: background 0.3s, transform 0.2s;
+}

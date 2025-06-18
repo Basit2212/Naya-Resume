@@ -1,16 +1,51 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Container, Row, Col } from 'react-bootstrap';
-
+import '../ExperienceForm/Experience.css'
 const Experience = ({ formData, setFormData }) => {
-  const handleChange = (e) => {
-    const { name, value } = e.target;
+  const [experiences, setExperiences] = useState([
+    {
+      company: '',
+      position: '',
+      location: '',
+      startDate: '',
+      endDate: '',
+      description: '',
+    },
+  ]);
 
+  const handleChange = (index, e) => {
+    const { name, value } = e.target;
+    const updated = [...experiences];
+    updated[index][name] = value;
+    setExperiences(updated);
+
+    // Update parent formData if needed
     setFormData((prev) => ({
       ...prev,
-      experienceInfo: {
-        ...prev.experienceInfo,
-        [name]: value,
+      experienceInfo: updated,
+    }));
+  };
+
+  const addMore = () => {
+    setExperiences([
+      ...experiences,
+      {
+        company: '',
+        position: '',
+        location: '',
+        startDate: '',
+        endDate: '',
+        description: '',
       },
+    ]);
+  };
+
+  const deleteExperience = (indexToRemove) => {
+    const filtered = experiences.filter((_, idx) => idx !== indexToRemove);
+    setExperiences(filtered);
+    setFormData((prev) => ({
+      ...prev,
+      experienceInfo: filtered,
     }));
   };
 
@@ -22,53 +57,73 @@ const Experience = ({ formData, setFormData }) => {
             <h3 className="mb-4 text-center" style={{ fontFamily: 'var(--font-heading)', fontWeight: 'bold' }}>
               Professional Experience
             </h3>
-            <form className="d-grid gap-3">
-              <input
-                name="company"
-                placeholder="Company Name"
-                className="form-control"
-                value={formData.experienceInfo?.company || ""}
-                onChange={handleChange}
-              />
-              <input
-                name="position"
-                placeholder="Job Title / Position"
-                className="form-control"
-                value={formData.experienceInfo?.position || ""}
-                onChange={handleChange}
-              />
-              <input
-                name="location"
-                placeholder="Company Location"
-                className="form-control"
-                value={formData.experienceInfo?.location || ""}
-                onChange={handleChange}
-              />
-              <div className="d-flex gap-3">
+
+            {experiences.map((exp, index) => (
+              <form key={index} className="d-grid gap-3">
                 <input
-                  name="startDate"
-                  placeholder="Start Date (e.g. Jan 2022)"
+                  name="company"
+                  placeholder="Company Name"
                   className="form-control"
-                  value={formData.experienceInfo?.startDate || ""}
-                  onChange={handleChange}
+                  value={exp.company}
+                  onChange={(e) => handleChange(index, e)}
                 />
                 <input
-                  name="endDate"
-                  placeholder="End Date or Present"
+                  name="position"
+                  placeholder="Job Title / Position"
                   className="form-control"
-                  value={formData.experienceInfo?.endDate || ""}
-                  onChange={handleChange}
+                  value={exp.position}
+                  onChange={(e) => handleChange(index, e)}
                 />
-              </div>
-              <textarea
-                name="description"
-                placeholder="Job Description / Key Responsibilities"
-                className="form-control"
-                rows={4}
-                value={formData.experienceInfo?.description || ""}
-                onChange={handleChange}
-              />
-            </form>
+                <input
+                  name="location"
+                  placeholder="Company Location"
+                  className="form-control"
+                  value={exp.location}
+                  onChange={(e) => handleChange(index, e)}
+                />
+                <div className="d-flex gap-3">
+                  <input
+                    name="startDate"
+                    placeholder="Start Date (e.g. Jan 2022)"
+                    className="form-control"
+                    value={exp.startDate}
+                    onChange={(e) => handleChange(index, e)}
+                  />
+                  <input
+                    name="endDate"
+                    placeholder="End Date or Present"
+                    className="form-control"
+                    value={exp.endDate}
+                    onChange={(e) => handleChange(index, e)}
+                  />
+                </div>
+                <textarea
+                  name="description"
+                  placeholder="Job Description / Key Responsibilities"
+                  className="form-control"
+                  rows={4}
+                  value={exp.description}
+                  onChange={(e) => handleChange(index, e)}
+                />
+                <div className="d-flex justify-content-end">
+                  {experiences.length > 1 && (
+                    <button
+                      type="button"
+                      onClick={() => deleteExperience(index)}
+                      className="delete-btn bg-danger mb-3"
+                    >
+                    <i class="bi bi-trash3-fill"></i>
+                    </button>
+                  )}
+                </div>
+              </form>
+            ))}
+
+            <div className="d-flex justify-content-center mt-2">
+              <button onClick={addMore} className="submit-btn">
+                Add More
+              </button>
+            </div>
           </div>
         </Col>
       </Row>

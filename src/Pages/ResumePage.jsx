@@ -15,9 +15,16 @@ const ResumePage = () => {
   const [formData, setFormData] = useState({
     personalInfo: {},
     educationInfo: {},
-    experienceInfo: {},
+    experienceInfo: [{
+      company: '',
+      position: '',
+      location: '',
+      startDate: '',
+      endDate: '',
+      description: '',
+    }],
     skillInfo: {},
-    
+
   });
 
   const isFormValid = () => {
