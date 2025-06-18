@@ -6,6 +6,7 @@ import EducationInfo from '../components/EducationForm/EducationInfo';
 import Experience from '../components/ExperienceForm/Experience';
 import Skill from '../components/SkillsForm/Skill';
 import ResumePreview from '../components/ResumePreview/ResumePreview'
+// import Project from '../components/ProjectForm/Project';
 
 
 const ResumePage = () => {
@@ -15,7 +16,8 @@ const ResumePage = () => {
     personalInfo: {},
     educationInfo: {},
     experienceInfo: {},
-    skillInfo: {}
+    skillInfo: {},
+    
   });
 
   const isFormValid = () => {
@@ -64,6 +66,9 @@ const ResumePage = () => {
             <Row>
               <Experience formData={formData} setFormData={setFormData} />
             </Row>
+            {/* <Row>
+              <Project formData={formData} setFormData={setFormData}/>
+            </Row> */}
             <Row>
               <Skill formData={formData} setFormData={setFormData} />
             </Row>

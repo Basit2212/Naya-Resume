@@ -40,7 +40,7 @@ const EducationInfo = ({ formData, setFormData }) => {
               />
               <input
                 name="field"
-                placeholder="Field of Study"
+                placeholder="Field of Study (e.g. Computer Science)"
                 className="form-control"
                 value={formData.educationInfo?.field || ""}
                 onChange={handleChange}

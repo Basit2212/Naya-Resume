@@ -3,18 +3,18 @@ import { Container } from 'react-bootstrap';
 import './ResumePreview.css';
 
 const ResumePreview = ({ formData }) => {
-  const { personalInfo, educationInfo, experienceInfo, projectsInfo, skillInfo } = formData;
+  const { personalInfo, educationInfo, experienceInfo, skillInfo, projectsInfo } = formData;
 
   return (
     <Container className="resume-preview py-5">
       {/* Personal Info */}
       {personalInfo?.fullName && (
-        <div className="text-center">
-          <h1 className="fw-bold">{personalInfo.fullName}</h1>
+        <div className="heading">
+          <h1 className="fw-bold pt-5 pb-1">{personalInfo.fullName}</h1>
           <p className="contact-info">
             {personalInfo.email && `${personalInfo.email} • `}
             {personalInfo.phoneNumber && `${personalInfo.phoneNumber} • `}
-            {personalInfo.linkedin && `LinkedIn: ${personalInfo.linkedin}`}
+            {personalInfo.website && `LinkedIn: ${personalInfo.website}`}
           </p>
         </div>
       )}
@@ -23,7 +23,9 @@ const ResumePreview = ({ formData }) => {
       {(educationInfo?.institution || educationInfo?.degree || educationInfo?.field) && (
         <section className="mt-4">
           <h5 className="section-title">EDUCATION</h5>
+          <hr class="section-divider" />
           {educationInfo.institution && <p className="fw-bold mb-0">{educationInfo.institution}</p>}
+          <div className='d-flex justify-content-between'>
           {(educationInfo.degree || educationInfo.field) && (
             <p className="fst-italic">
               {educationInfo.degree} {educationInfo.field && `in ${educationInfo.field}`}
@@ -31,7 +33,7 @@ const ResumePreview = ({ formData }) => {
           )}
           {educationInfo.endYear && (
             <p className="text-muted">Expected {educationInfo.endYear}</p>
-          )}
+          )}</div>
         </section>
       )}
 
@@ -39,18 +41,17 @@ const ResumePreview = ({ formData }) => {
       {(experienceInfo?.company || experienceInfo?.position || experienceInfo?.description) && (
         <section className="mt-4">
           <h5 className="section-title">PROFESSIONAL EXPERIENCE</h5>
+          <hr class="section-divider" />
+          <div className='d-flex justify-content-between'>
           <p className="fw-bold mb-0">
             {experienceInfo.company} {experienceInfo.location && `– ${experienceInfo.location}`}
           </p>
           <p className="text-muted">
-            {experienceInfo.position} {experienceInfo.startDate && `| ${experienceInfo.startDate} – ${experienceInfo.endDate}`}
+            <strong className='text-dark'> {experienceInfo.position}</strong> {experienceInfo.startDate && `| ${experienceInfo.startDate} – ${experienceInfo.endDate}`}
           </p>
+          </div>
           {experienceInfo.description && (
-            <ul>
-              {experienceInfo.description.split('.').filter(line => line.trim() !== '').map((item, index) => (
-                <li key={index}>{item.trim()}.</li>
-              ))}
-            </ul>
+            <p>{experienceInfo.description}</p>
           )}
         </section>
       )}
@@ -59,6 +60,7 @@ const ResumePreview = ({ formData }) => {
       {projectsInfo && projectsInfo.length > 0 && (
         <section className="mt-4">
           <h5 className="section-title">PROJECTS & EXTRACURRICULAR</h5>
+          <hr class="section-divider" />
           {projectsInfo.map((project, index) => (
             <div key={index} className="mb-3">
               {project.title && <p className="fw-bold mb-1">{project.title}</p>}
@@ -69,18 +71,14 @@ const ResumePreview = ({ formData }) => {
       )}
 
       {/* Skills */}
-      {(skillInfo?.languages || skillInfo?.tools || skillInfo?.spoken) && (
+      {(skillInfo?.skills) && (
         <section className="mt-4">
           <h5 className="section-title">SKILLS</h5>
-          {skillInfo.languages && (
-            <p><strong>Programming Languages:</strong> {skillInfo.languages}</p>
+          <hr class="section-divider" />
+          {skillInfo.skills && (
+            <p>{skillInfo.skills}</p>
           )}
-          {skillInfo.tools && (
-            <p><strong>Tools & Frameworks:</strong> {skillInfo.tools}</p>
-          )}
-          {skillInfo.spoken && (
-            <p><strong>Languages Spoken:</strong> {skillInfo.spoken}</p>
-          )}
+      
         </section>
       )}
     </Container>
