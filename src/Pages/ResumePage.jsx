@@ -6,58 +6,82 @@ import EducationInfo from '../components/EducationForm/EducationInfo';
 import Experience from '../components/ExperienceForm/Experience';
 import Skill from '../components/SkillsForm/Skill';
 import ResumePreview from '../components/ResumePreview/ResumePreview'
-// import Project from '../components/ProjectForm/Project';
+import { useEffect } from 'react';
+import Project from '../components/ProjectForm/Project';
 
 
 const ResumePage = () => {
   const [previewMode, setPreviewMode] = useState(false);
 
-  const [formData, setFormData] = useState({
-    personalInfo: {},
-    educationInfo: {},
-    experienceInfo: [{
-      company: '',
-      position: '',
-      location: '',
-      startDate: '',
-      endDate: '',
-      description: '',
-    }],
-    skillInfo: {},
+  const [formData, setFormData] = useState(() => {
+    const saved = localStorage.getItem('resumeData')
+    return saved ? JSON.parse(saved) : {
+      personalInfo: {},
+
+      educationInfo: [{
+        institution: '',
+        degree: '',
+        field: '',
+        startYear: '',
+        endYear: '',
+        grade: '',
+        location: '',
+      }],
+
+      experienceInfo: [{
+        company: '',
+        position: '',
+        location: '',
+        startDate: '',
+        endDate: '',
+        description: '',
+      }],
+
+      skillInfo: {},
+      projectsInfo: [{
+        title: '',
+        startDate: '',
+        endDate: '',
+        description: ''
+      }],
+    }
+
 
   });
 
-  const isFormValid = () => {
-    for (const sectionKey in formData) {
-      const section = formData[sectionKey];
+  useEffect(() => {
+    localStorage.setItem('resumeData', JSON.stringify(formData))
 
-      // If the section is empty
-      if (!section || Object.keys(section).length === 0) {
-        return false;
-      }
 
-      for (const field in section) {
-        const value = section[field];
-        if (!value || value.toString().trim() === "") {
-          return false;
-        }
-      }
-    }
-    return true;
-  };
+  }, [formData])
+
 
 
 
   const handleSubmitAll = () => {
-    if (!isFormValid()) {
-      alert("Please fill in all fields before submitting.");
-      return;
-    }
 
     alert("Form submitted successfully!");
     console.log(formData);
     setPreviewMode(true)
   };
+  const clearForm = () => {
+    localStorage.removeItem('resumeData');
+    setFormData({
+      personalInfo: {},
+      educationInfo: [{ institution: '', degree: '', field: '', startYear: '', endYear: '', grade: '', location: '' }],
+      experienceInfo: [{ company: '', position: '', location: '', startDate: '', endDate: '', description: '' }],
+      skillInfo: {},
+      projectsInfo: [{
+        title: '',
+        startDate: '',
+        endDate: '',
+        description: ''
+
+      }]
+    });
+    setPreviewMode(false);
+  };
+
 
   return (
     <div className="resume-page py-5">
@@ -73,19 +97,23 @@ const ResumePage = () => {
             <Row>
               <Experience formData={formData} setFormData={setFormData} />
             </Row>
-            {/* <Row>
-              <Project formData={formData} setFormData={setFormData}/>
-            </Row> */}
+            <Row>
+              <Project formData={formData} setFormData={setFormData} />
+            </Row>
             <Row>
               <Skill formData={formData} setFormData={setFormData} />
             </Row>
             <Row className="mt-4">
               <Col className="text-center">
-                <button className='submit-btn' onClick={handleSubmitAll}>
+                <button className="submit-btn me-3" onClick={handleSubmitAll}>
                   Submit
+                </button>
+                <button className="submit-btn bg-danger " onClick={clearForm}>
+                  Clear All
                 </button>
               </Col>
             </Row>
+
           </>
         ) : (
           <>

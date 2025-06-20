@@ -20,65 +20,103 @@ const ResumePreview = ({ formData }) => {
       )}
 
       {/* Education */}
-      {(educationInfo?.institution || educationInfo?.degree || educationInfo?.field) && (
-        <section className="mt-4">
-          <h5 className="section-title">EDUCATION</h5>
-          <hr class="section-divider" />
-          {educationInfo.institution && <p className="fw-bold mb-0">{educationInfo.institution}</p>}
-          <div className='d-flex justify-content-between'>
-          {(educationInfo.degree || educationInfo.field) && (
-            <p className="fst-italic">
-              {educationInfo.degree} {educationInfo.field && `in ${educationInfo.field}`}
-            </p>
-          )}
-          {educationInfo.endYear && (
-            <p className="text-muted">Expected {educationInfo.endYear}</p>
-          )}</div>
-        </section>
-      )}
+      {Array.isArray(educationInfo) && educationInfo.some(edu =>
+        edu.institution || edu.degree || edu.field
+      ) && (
+          <section className="mt-4">
+            <h5 className="section-title">EDUCATION</h5>
+            <hr className="section-divider" />
+
+            {educationInfo.map((edu, index) =>
+              (edu.institution || edu.degree || edu.field) && (
+                <div key={index} className="mb-3">
+                  {edu.institution && <p className="fw-bold mb-0">{edu.institution}</p>}
+                  <div className="d-flex justify-content-between">
+                    {(edu.degree || edu.field) && (
+                      <p className="fst-italic mb-0">
+                        {edu.degree} {edu.field && `in ${edu.field}`}
+                      </p>
+                    )}
+                    {edu.endYear && <p className="text-muted mb-0"> {edu.startYear} - {edu.endYear}</p>}
+                  </div>
+                </div>
+              )
+            )}
+          </section>
+        )}
 
       {/* Experience */}
-      {(experienceInfo?.company || experienceInfo?.position || experienceInfo?.description) && (
-        <section className="mt-4">
-          <h5 className="section-title">PROFESSIONAL EXPERIENCE</h5>
-          <hr class="section-divider" />
-          <div className='d-flex justify-content-between'>
-          <p className="fw-bold mb-0">
-            {experienceInfo.company} {experienceInfo.location && `– ${experienceInfo.location}`}
-          </p>
-          <p className="text-muted">
-            <strong className='text-dark'> {experienceInfo.position}</strong> {experienceInfo.startDate && `| ${experienceInfo.startDate} – ${experienceInfo.endDate}`}
-          </p>
-          </div>
-          {experienceInfo.description && (
-            <p>{experienceInfo.description}</p>
-          )}
-        </section>
-      )}
+      {Array.isArray(experienceInfo) && experienceInfo.some(exp =>
+        exp.company || exp.position || exp.description
+      ) && (
+          <section className="mt-4">
+            <h5 className="section-title">PROFESSIONAL EXPERIENCE</h5>
+            <hr className="section-divider" />
+
+            {experienceInfo.map((exp, index) =>
+              (exp.company || exp.position || exp.description) && (
+                <div key={index} className="mb-3">
+                  <div className="d-flex justify-content-between">
+                    <p className="fw-bold mb-0">
+                      {exp.company} {exp.location && `– ${exp.location}`}
+                    </p>
+                    <p className="text-muted mb-0">
+                      {exp.position && <strong className="text-dark">{exp.position}</strong>}
+                      {(exp.startDate || exp.endDate) && ` | ${exp.startDate} – ${exp.endDate || 'Present'}`}
+                    </p>
+
+                  </div>
+                  {exp.description && <p className="mb-0">{exp.description}</p>}
+                </div>
+              )
+            )}
+          </section>
+        )}
 
       {/* Projects */}
-      {projectsInfo && projectsInfo.length > 0 && (
-        <section className="mt-4">
-          <h5 className="section-title">PROJECTS & EXTRACURRICULAR</h5>
-          <hr class="section-divider" />
-          {projectsInfo.map((project, index) => (
-            <div key={index} className="mb-3">
-              {project.title && <p className="fw-bold mb-1">{project.title}</p>}
-              {project.description && <p>{project.description}</p>}
-            </div>
-          ))}
-        </section>
-      )}
+      {Array.isArray(projectsInfo) &&
+        projectsInfo.some(
+          (project) =>
+            project.title || project.startDate || project.endDate || project.description
+        ) && (
+          <section className="mt-4">
+            <h5 className="section-title">PROJECTS & EXTRACURRICULAR</h5>
+            <hr className="section-divider" />
+            {projectsInfo
+              .filter(
+                (project) =>
+                  project.title || project.startDate || project.endDate || project.description
+              )
+              .map((project, index) => (
+                <div key={index} className="mb-3">
+                  {project.title && (
+                    <p className="fw-bold mb-1">{project.title}</p>
+                  )}
+
+                  {(project.startDate || project.endDate) && (
+                    <p className="text-muted mb-1" style={{ fontSize: "0.9rem" }}>
+                      {[project.startDate, project.endDate]
+                        .filter(Boolean)
+                        .join(' - ')}
+                    </p>
+                  )}
+
+                  {project.description && (
+                    <p className="mb-0">{project.description}</p>
+                  )}
+                </div>
+              ))}
+          </section>
+        )}
+
+
 
       {/* Skills */}
-      {(skillInfo?.skills) && (
+      {skillInfo?.skills && (
         <section className="mt-4">
           <h5 className="section-title">SKILLS</h5>
-          <hr class="section-divider" />
-          {skillInfo.skills && (
-            <p>{skillInfo.skills}</p>
-          )}
-      
+          <hr className="section-divider" />
+          <p>{skillInfo.skills}</p>
         </section>
       )}
     </Container>

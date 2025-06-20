@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Container, Row, Col } from 'react-bootstrap';
 import '../ExperienceForm/Experience.css'
 const Experience = ({ formData, setFormData }) => {
@@ -19,11 +19,6 @@ const Experience = ({ formData, setFormData }) => {
     updated[index][name] = value;
     setExperiences(updated);
 
-    // Update parent formData if needed
-    setFormData((prev) => ({
-      ...prev,
-      experienceInfo: updated,
-    }));
   };
 
   const addMore = () => {
@@ -48,6 +43,13 @@ const Experience = ({ formData, setFormData }) => {
       experienceInfo: filtered,
     }));
   };
+  useEffect(() => {
+  setFormData((prev) => ({
+    ...prev,
+    experienceInfo: experiences,
+  }));
+}, [experiences]);
+
 
   return (
     <Container className="mt-5">

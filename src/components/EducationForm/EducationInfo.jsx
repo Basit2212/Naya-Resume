@@ -1,16 +1,56 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Col, Container, Row } from 'react-bootstrap';
 
 const EducationInfo = ({ formData, setFormData }) => {
+  const [educationInfo, setEducationInfo] = useState([
+    {
+      institution: '',
+      degree: '',
+      field: '',
+      startYear: '',
+      endYear: '',
+      grade: '',
+      location: '',
+    },
+  ]);
 
-  const handleChange = (e) => {
+  const handleChange = (index, e) => {
     const { name, value } = e.target;
-    setFormData(prev => ({
+    const updated = [...educationInfo];
+    updated[index][name] = value;
+    setEducationInfo(updated);
+    setFormData((prev) => ({
       ...prev,
-      educationInfo: {
-        ...prev.educationInfo,
-        [name]: value,
+      educationInfo: updated,
+    }));
+  };
+
+  const addMore = () => {
+    const updated = [
+      ...educationInfo,
+      {
+        institution: '',
+        degree: '',
+        field: '',
+        startYear: '',
+        endYear: '',
+        grade: '',
+        location: '',
       },
+    ];
+    setEducationInfo(updated);
+    setFormData((prev) => ({
+      ...prev,
+      educationInfo: updated,
+    }));
+  };
+
+  const deleteEducation = (indexToRemove) => {
+    const filtered = educationInfo.filter((_, idx) => idx !== indexToRemove);
+    setEducationInfo(filtered);
+    setFormData((prev) => ({
+      ...prev,
+      educationInfo: filtered,
     }));
   };
 
@@ -22,63 +62,80 @@ const EducationInfo = ({ formData, setFormData }) => {
             <h3 className="mb-4 text-center" style={{ fontFamily: 'var(--font-heading)', fontWeight: 'bold' }}>
               Education Details
             </h3>
-
-            <div className="d-grid gap-3">
-              <input
-                name="institution"
-                placeholder="University / School Name"
-                className="form-control"
-                value={formData.educationInfo?.institution || ""}
-                onChange={handleChange}
-              />
-              <input
-                name="degree"
-                placeholder="Degree or Qualification"
-                className="form-control"
-                value={formData.educationInfo?.degree || ""}
-                onChange={handleChange}
-              />
-              <input
-                name="field"
-                placeholder="Field of Study (e.g. Computer Science)"
-                className="form-control"
-                value={formData.educationInfo?.field || ""}
-                onChange={handleChange}
-              />
-              <div className="d-flex gap-3">
+            {educationInfo.map((ed, index) => (
+              <div key={index} className="d-grid gap-3 mb-4">
                 <input
-                  name="startYear"
-                  placeholder="Start Year"
+                  name="institution"
+                  placeholder="University / School Name"
                   className="form-control"
-                  value={formData.educationInfo?.startYear || ""}
-                  type="number"
-                  onChange={handleChange}
+                  value={ed.institution}
+                  onChange={(e) => handleChange(index, e)}
                 />
                 <input
-                  name="endYear"
-                  placeholder="End Year"
+                  name="degree"
+                  placeholder="Degree or Qualification"
                   className="form-control"
-                  value={formData.educationInfo?.endYear || ""}
-                  type="number"
-                  onChange={handleChange}
+                  value={ed.degree}
+                  onChange={(e) => handleChange(index, e)}
                 />
+                <input
+                  name="field"
+                  placeholder="Field of Study (e.g. Computer Science)"
+                  className="form-control"
+                  value={ed.field}
+                  onChange={(e) => handleChange(index, e)}
+                />
+                <div className="d-flex gap-3">
+                  <input
+                    name="startYear"
+                    placeholder="Start Year"
+                    className="form-control"
+                    type="number"
+                    value={ed.startYear}
+                    onChange={(e) => handleChange(index, e)}
+                  />
+                  <input
+                    name="endYear"
+                    placeholder="End Year"
+                    className="form-control"
+                    type="number"
+                    value={ed.endYear}
+                    onChange={(e) => handleChange(index, e)}
+                  />
+                </div>
+                <input
+                  name="grade"
+                  placeholder="Grade / CGPA (optional)"
+                  className="form-control"
+                  value={ed.grade}
+                  onChange={(e) => handleChange(index, e)}
+                />
+                <input
+                  name="location"
+                  placeholder="Location (optional)"
+                  className="form-control"
+                  value={ed.location}
+                  onChange={(e) => handleChange(index, e)}
+                />
+                {educationInfo.length > 1 && (
+                  <div className="d-flex justify-content-end">
+                    <button
+                      type="button"
+                      onClick={() => deleteEducation(index)}
+                      className="delete-btn bg-danger"
+                    >
+                      <i className="bi bi-trash3-fill"></i>
+                    </button>
+                  </div>
+                )}
               </div>
-              <input
-                name="grade"
-                placeholder="Grade / CGPA (optional)"
-                className="form-control"
-                value={formData.educationInfo?.grade || ""}
-                onChange={handleChange}
-              />
-              <input
-                name="location"
-                placeholder="Location (optional)"
-                className="form-control"
-                value={formData.educationInfo?.location || ""}
-                onChange={handleChange}
-              />
-            </div>
+            ))}
 
+            <div className="d-flex justify-content-center mt-2">
+              <button onClick={addMore} className="submit-btn btn btn-primary px-4">
+                Add More
+              </button>
+            </div>
           </div>
         </Col>
       </Row>
