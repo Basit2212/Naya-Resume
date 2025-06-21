@@ -86,8 +86,9 @@ const Project = ({ formData, setFormData }) => {
                                         onChange={(e) => handleChange(index, e)}
                                     />
                                 </div>
+                                <div className='form-group'>
+                                <label className="form-label fw-semibold mb-2">Project Description</label>
                                 <MDEditor
-                                className='text-black'
                                     value={project.description}
                                     onChange={(val) => {
                                         const updated = [...projectsInfo];
@@ -97,6 +98,7 @@ const Project = ({ formData, setFormData }) => {
                                     preview="edit"
                                     height={180}
                                 />
+                                </div>
 
                                 {projectsInfo.length > 1 && (
                                     <div className="d-flex justify-content-end">

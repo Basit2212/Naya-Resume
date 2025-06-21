@@ -15,7 +15,7 @@ const Skill = ({ formData, setFormData }) => {
               Skills
             </h3>
             <div className="form-group">
-              <div className="custom-md-editor-wrapper">
+              <div className="">
                 <MDEditor
                   value={formData.skillInfo?.skills || ''}
                   onChange={(val) =>

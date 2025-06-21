@@ -1,6 +1,7 @@
 import React from 'react';
 import { Container } from 'react-bootstrap';
 import './ResumePreview.css';
+import MDEditor from '@uiw/react-md-editor';
 
 const ResumePreview = ({ formData }) => {
   const { personalInfo, educationInfo, experienceInfo, skillInfo, projectsInfo } = formData;
@@ -108,8 +109,12 @@ const ResumePreview = ({ formData }) => {
                   )}
 
                   {project.description && (
-                    <p className="mb-0">{project.description}</p>
+                    <MDEditor.Markdown
+                      source={project.description}
+                      style={{ whiteSpace: "pre-wrap", textAlign: "left" }}
+                    />
                   )}
+
                 </div>
               ))}
           </section>
@@ -122,7 +127,11 @@ const ResumePreview = ({ formData }) => {
         <section className="mt-4">
           <h5 className="section-title">SKILLS</h5>
           <hr className="section-divider" />
-          <p>{skillInfo.skills}</p>
+          <MDEditor.Markdown
+            source={skillInfo.skills}
+            style={{ whiteSpace: "pre-wrap", textAlign: "left" }}
+          />
+
         </section>
       )}
     </Container>

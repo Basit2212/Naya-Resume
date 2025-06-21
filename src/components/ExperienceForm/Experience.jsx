@@ -102,12 +102,11 @@ const Experience = ({ formData, setFormData }) => {
                   />
                 </div>
                 <div className="form-group">
-                  <label className="form-label" style={{ fontWeight: "500", marginBottom: "8px" }}>
+                  <label className="form-label fw-semibold mb-2">
                     Description
                   </label>
-                  <div className="custom-md-editor-wrapper">
+                  <div data-color-mode="light">
                     <MDEditor
-                    className='text-black'
                       value={exp.description}
                       onChange={(val) => {
                         const updated = [...experiences];
@@ -117,9 +116,9 @@ const Experience = ({ formData, setFormData }) => {
                       preview="edit"
                       height={180}
                     />
-
                   </div>
                 </div>
+
 
 
                 <div className="d-flex justify-content-end">
