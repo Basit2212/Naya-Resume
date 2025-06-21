@@ -1,7 +1,9 @@
 import React, { useState, useEffect } from 'react';
 import { Container, Row, Col } from 'react-bootstrap';
+import MDEditor from '@uiw/react-md-editor';
 import '../ExperienceForm/Experience.css'
 const Experience = ({ formData, setFormData }) => {
+  const [value, setValue] = useState('');
   const [experiences, setExperiences] = useState([
     {
       company: '',
@@ -44,11 +46,11 @@ const Experience = ({ formData, setFormData }) => {
     }));
   };
   useEffect(() => {
-  setFormData((prev) => ({
-    ...prev,
-    experienceInfo: experiences,
-  }));
-}, [experiences]);
+    setFormData((prev) => ({
+      ...prev,
+      experienceInfo: experiences,
+    }));
+  }, [experiences]);
 
 
   return (
@@ -99,14 +101,27 @@ const Experience = ({ formData, setFormData }) => {
                     onChange={(e) => handleChange(index, e)}
                   />
                 </div>
-                <textarea
-                  name="description"
-                  placeholder="Job Description / Key Responsibilities"
-                  className="form-control"
-                  rows={4}
-                  value={exp.description}
-                  onChange={(e) => handleChange(index, e)}
-                />
+                <div className="form-group">
+                  <label className="form-label" style={{ fontWeight: "500", marginBottom: "8px" }}>
+                    Description
+                  </label>
+                  <div className="custom-md-editor-wrapper">
+                    <MDEditor
+                    className='text-black'
+                      value={exp.description}
+                      onChange={(val) => {
+                        const updated = [...experiences];
+                        updated[index].description = val;
+                        setExperiences(updated);
+                      }}
+                      preview="edit"
+                      height={180}
+                    />
+
+                  </div>
+                </div>
+
+
                 <div className="d-flex justify-content-end">
                   {experiences.length > 1 && (
                     <button
@@ -114,7 +129,7 @@ const Experience = ({ formData, setFormData }) => {
                       onClick={() => deleteExperience(index)}
                       className="delete-btn bg-danger mb-3"
                     >
-                    <i class="bi bi-trash3-fill"></i>
+                      <i class="bi bi-trash3-fill"></i>
                     </button>
                   )}
                 </div>

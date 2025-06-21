@@ -1,42 +1,42 @@
-import React from 'react'
-import { Col, Container, Row } from 'react-bootstrap'
+import React, { useState } from 'react';
+import { Col, Container, Row } from 'react-bootstrap';
+import MDEditor from '@uiw/react-md-editor';
 
 const Skill = ({ formData, setFormData }) => {
+  return (
+    <Container className="mt-5">
+      <Row>
+        <Col md={8} className="mx-auto">
+          <div className="skills-section p-4">
+            <h3
+              className="mb-4 text-center"
+              style={{ fontFamily: 'var(--font-heading)', fontWeight: 'bold' }}
+            >
+              Skills
+            </h3>
+            <div className="form-group">
+              <div className="custom-md-editor-wrapper">
+                <MDEditor
+                  value={formData.skillInfo?.skills || ''}
+                  onChange={(val) =>
+                    setFormData({
+                      ...formData,
+                      skillInfo: {
+                        ...formData.skillInfo,
+                        skills: val,
+                      },
+                    })
+                  }
+                  preview="edit"
+                  height={180}
+                />
+              </div>
+            </div>
+          </div>
+        </Col>
+      </Row>
+    </Container>
+  );
+};
 
-    const handleChange = (e) => {
-        const { name, value } = e.target;
-        setFormData((prev) => ({
-            ...prev,
-            skillInfo: {
-                ...prev.skillInfo,
-                [name]: value,
-            },
-        }));
-    }
-
-    return (
-        <>
-            <Container className='mt-5'>
-                <Row>
-                    <Col md={8} className='mx-auto'>
-                        <div className='skills-section p-4'></div>
-                        <h3 className="mb-4 text-center" style={{ fontFamily: 'var(--font-heading)', fontWeight: 'bold' }}>
-                            Skills
-                        </h3>
-                        <textarea
-                            name="skills"
-                            placeholder="E.g. JavaScript, React, Node.js, Teamwork, Communication"
-                            className="form-control"
-                            rows={4}
-                            value={formData.skillInfo?.skills || ""}
-                            onChange={handleChange}
-                        />
-
-                    </Col>
-                </Row>
-            </Container>
-        </>
-    )
-}
-
-export default Skill
+export default Skill;

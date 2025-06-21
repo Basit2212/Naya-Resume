@@ -66,7 +66,13 @@ const ResumePreview = ({ formData }) => {
                     </p>
 
                   </div>
-                  {exp.description && <p className="mb-0">{exp.description}</p>}
+                  {exp.description && (
+                    <MDEditor.Markdown
+                      source={exp.description}
+                      style={{ whiteSpace: "pre-wrap", textAlign: "left" }}
+                    />
+                  )}
+
                 </div>
               )
             )}

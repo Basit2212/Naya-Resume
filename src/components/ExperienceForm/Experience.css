@@ -10,3 +10,22 @@
     box-shadow: 0 4px 12px rgba(255, 99, 97, 0.3);
     transition: background 0.3s, transform 0.2s;
 }
+.custom-md-editor-wrapper .w-md-editor {
+  border: 1px solid #ced4da;
+  border-radius: 8px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.03);
+  font-family: 'Segoe UI', sans-serif;
+  transition: border-color 0.2s;
+}
+
+.custom-md-editor-wrapper .w-md-editor:focus-within {
+  border-color: #0d6efd;
+  box-shadow: 0 0 0 3px rgba(13, 110, 253, 0.1);
+}
+
+.custom-md-editor-wrapper .w-md-editor-text-input {
+  padding: 12px;
+  font-size: 15px;
+  background-color: #fff;
+  border-radius: 0 0 8px 8px;
+}

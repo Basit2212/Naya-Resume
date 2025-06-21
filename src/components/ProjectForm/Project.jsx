@@ -1,7 +1,10 @@
 import React, { useState } from 'react';
 import { Col, Container, Row } from 'react-bootstrap';
+import MDEditor from '@uiw/react-md-editor';
 
 const Project = ({ formData, setFormData }) => {
+    const [value, setValue] = useState('');
+
     const [projectsInfo, setProjectsInfo] = useState([
         {
             title: '',
@@ -16,8 +19,6 @@ const Project = ({ formData, setFormData }) => {
         const updated = [...projectsInfo];
         updated[index][name] = value;
         setProjectsInfo(updated);
-
-        // Sync with formData
         setFormData((prev) => ({
             ...prev,
             projectsInfo: updated,
@@ -47,7 +48,7 @@ const Project = ({ formData, setFormData }) => {
         setProjectsInfo(filtered);
         setFormData((prev) => ({
             ...prev,
-            projects: filtered, // 
+            projectsInfo: filtered, // 
         }));
     };
 
@@ -85,14 +86,18 @@ const Project = ({ formData, setFormData }) => {
                                         onChange={(e) => handleChange(index, e)}
                                     />
                                 </div>
-                                <textarea
-                                    name="description"
-                                    placeholder='Project Details'
-                                    className='form-control'
-                                    rows={4}
+                                <MDEditor
+                                className='text-black'
                                     value={project.description}
-                                    onChange={(e) => handleChange(index, e)}
+                                    onChange={(val) => {
+                                        const updated = [...projectsInfo];
+                                        updated[index].description = val;
+                                        setProjectsInfo(updated);
+                                    }}
+                                    preview="edit"
+                                    height={180}
                                 />
+
                                 {projectsInfo.length > 1 && (
                                     <div className="d-flex justify-content-end">
                                         <button
