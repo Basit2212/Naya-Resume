@@ -6,39 +6,39 @@ import icon from '../../Media/resume_942748.png'
 import { useState, useEffect } from 'react';
 
 function Header() {
-  const [showNavbar, setShowNavbar] = useState(false)
+ const [showNavbar, setShowNavbar] = useState(false)
   useEffect(() => {
-    const handleScroll = () => {
-      if (window.scrollY > 100) {
+    const handleScroll = ()=>{
+      if(window.scrollY > 100){
         setShowNavbar(true)
       }
-      else {
+      else{
         setShowNavbar(false)
       }
 
     }
     window.addEventListener('scroll', handleScroll)
-
+  
     return () => {
       window.removeEventListener('scroll', handleScroll)
     }
   }, [])
-
-
+  
+  
   return (
 
 
 
-
-    <Navbar expand="lg" className={`custom-navbar ${showNavbar ? 'scrolled' : ''}`}>
+   
+ <Navbar expand="lg" className={`custom-navbar ${showNavbar ? 'scrolled' : ''}`}>
 
       <Container>
         <Navbar.Brand as={NavLink} to="/">
-          <img src={icon} alt="" /> Naya Resume
+           <img src={icon} alt="" /> Naya Resume
         </Navbar.Brand>
         <Navbar.Toggle aria-controls="basic-navbar-nav" />
         <Navbar.Collapse id="basic-navbar-nav">
-          <div className="d-flex flex-column flex-lg-row align-items-left gap-5 py-5">
+         <div className="navbarCollapse m-auto d-flex gap-5">
 
             <NavLink to="/" className="nav-link">Home</NavLink>
             <NavLink to="/resume" className="nav-link">Resume</NavLink>
@@ -48,7 +48,6 @@ function Header() {
         </Navbar.Collapse>
       </Container>
     </Navbar>
-
 
 
 

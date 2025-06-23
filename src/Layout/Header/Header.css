@@ -98,3 +98,18 @@
   color: #ffffff;
   border-radius: 5px;
 }
+
+@media (max-width: 991px) {
+  .navbar-collapse.show {
+    padding-top: 20px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .navbarCollapse {
+    flex-direction: column;
+    align-items: center;
+    gap: 1.2rem;
+  }
+}
