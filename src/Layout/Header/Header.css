@@ -1,10 +1,32 @@
-.navbar {
-  background: linear-gradient(135deg, #0f2027, #203a43, #2c5364); /* Deep ocean gradient */
-  padding: 15px 0;
-  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15);
-  transition: background 0.3s ease;
+.custom-navbar {
+  background: linear-gradient(135deg, #0f2027, #203a43, #2c5364);
+  padding: 20px 0;
+  width: 100%;
+  transition: all 0.4s ease;
   z-index: 999;
+  position: relative; /* initial position */
 }
+
+/* When scrolled more than 100px */
+.custom-navbar.scrolled {
+  position: fixed;
+  top: 0;
+  left: 0;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15);
+  animation: slideDown 0.4s ease forwards;
+}
+
+/* Smooth slide animation */
+@keyframes slideDown {
+  from {
+    transform: translateY(-100%);
+  }
+  to {
+    transform: translateY(0);
+  }
+}
+
+
 
 .navbar-brand {
   font-family: var(--font-header);
