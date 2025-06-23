@@ -3,15 +3,13 @@ import 'bootstrap-icons/font/bootstrap-icons.css';
 import './index.css';
 import React from 'react';
 import { Routes, Route } from 'react-router-dom';
-import Home from './Pages/Home'
+import Home from './Pages/Home';
 import Header from './Layout/Header/Header';
-import Footer from './Layout/Footer/Footer'
+import Footer from './Layout/Footer/Footer';
 import Contact from './Pages/Contact';
 import About from './Pages/About';
 import ResumePage from './Pages/ResumePage';
 import { Analytics } from '@vercel/analytics/react';
-
-
 
 function App() {
   return (
@@ -28,8 +26,9 @@ function App() {
       </main>
 
       <Footer />
-
-      <Analytics /> {/* <-- Add this here */}
+      <Analytics />
     </div>
   );
 }
+
+export default App; // ✅ This is what was missing
