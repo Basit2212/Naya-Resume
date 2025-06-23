@@ -34,8 +34,6 @@ const EducationInfo = ({ formData, setFormData }) => {
         field: '',
         startYear: '',
         endYear: '',
-        grade: '',
-        location: '',
       },
     ];
     setEducationInfo(updated);
@@ -103,20 +101,6 @@ const EducationInfo = ({ formData, setFormData }) => {
                     onChange={(e) => handleChange(index, e)}
                   />
                 </div>
-                <input
-                  name="grade"
-                  placeholder="Grade / CGPA (optional)"
-                  className="form-control"
-                  value={ed.grade}
-                  onChange={(e) => handleChange(index, e)}
-                />
-                <input
-                  name="location"
-                  placeholder="Location (optional)"
-                  className="form-control"
-                  value={ed.location}
-                  onChange={(e) => handleChange(index, e)}
-                />
                 {educationInfo.length > 1 && (
                   <div className="d-flex justify-content-end">
                     <button

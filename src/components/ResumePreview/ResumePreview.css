@@ -82,5 +82,25 @@
 }
 
 .text-center {
-  text-align: center;
+  text-align: center !important;
+}
+
+@media print {
+  body {
+    -webkit-print-color-adjust: exact !important;
+    print-color-adjust: exact !important;
+  }
+
+  .no-print {
+    display: none !important;
+  }
+
+  .resume-preview {
+    border: none !important;
+    box-shadow: none !important;
+    margin: 0 !important;
+    padding: 20mm !important;
+    width: 210mm;
+    background: white !important;
+  }
 }

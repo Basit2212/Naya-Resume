@@ -3,22 +3,39 @@
     min-width: 100%;
     height: auto;
 }
-
 .submit-btn {
-    width: 20%;
-    padding: 14px;
-    background: #ff6361;
-    color: white;
-    border: none;
-    border-radius: 10px;
-    font-size: 16px;
-    font-weight: 600;
-    cursor: pointer;
-    box-shadow: 0 4px 12px rgba(255, 99, 97, 0.3);
-    transition: background 0.3s, transform 0.2s;
+  display: inline-block;
+  min-width: 140px;
+  padding: 12px 24px;
+  background: #ff6361;
+  color: white;
+  border: none;
+  border-radius: 8px;
+  font-size: 16px;
+  font-weight: 600;
+  cursor: pointer;
+  text-align: center;
+  box-shadow: 0 4px 12px rgba(255, 99, 97, 0.3);
+  transition: background 0.3s ease, transform 0.2s ease;
 }
 
 .submit-btn:hover {
-    background: #e65a58;
-    transform: translateY(-2px);
+  background: #e65a58;
+  transform: translateY(-2px);
 }
+
+.danger-btn {
+  background-color: #dc3545;
+}
+
+.danger-btn:hover {
+  background-color: #b02a37;
+}
+
+@media (max-width: 768px) {
+  .submit-btn {
+    width: 50%;
+    font-size: 15px;
+  }
+}
+

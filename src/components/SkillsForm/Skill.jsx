@@ -12,7 +12,7 @@ const Skill = ({ formData, setFormData }) => {
               className="mb-4 text-center"
               style={{ fontFamily: 'var(--font-heading)', fontWeight: 'bold' }}
             >
-              Skills
+              Skills & Hobbies
             </h3>
             <div className="form-group">
               <div className="">

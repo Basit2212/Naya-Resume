@@ -1,13 +1,40 @@
-import React from 'react';
+import React, { useRef } from 'react';
 import { Container } from 'react-bootstrap';
 import './ResumePreview.css';
 import MDEditor from '@uiw/react-md-editor';
+import html2pdf from 'html2pdf.js';
 
 const ResumePreview = ({ formData }) => {
+
   const { personalInfo, educationInfo, experienceInfo, skillInfo, projectsInfo } = formData;
 
+  const resumeRef = useRef()
+
+  const handleDownload = () => {
+    const element = resumeRef.current;
+    const opt = {
+      margin: 0.5,
+      filename: 'naya-resume.pdf',
+      image: { type: 'jpeg', quality: 0.98 },
+      html2canvas: { scale: 2 },
+      jsPDF: { unit: 'in', format: 'a4', orientation: 'portrait' },
+    };
+    html2pdf().set(opt).from(element).save();
+  };
+
   return (
+
+
+
     <Container className="resume-preview py-5">
+
+      <div className="text-end mb-4 no-print">
+        <button className="btn btn-danger" onClick={handleDownload}>
+          Download as PDF
+        </button>
+      </div>
+
+      <div ref={resumeRef}>
       {/* Personal Info */}
       {personalInfo?.fullName && (
         <div className="heading">
@@ -111,7 +138,7 @@ const ResumePreview = ({ formData }) => {
                   {project.description && (
                     <MDEditor.Markdown
                       source={project.description}
-                      style={{ whiteSpace: "pre-wrap", textAlign: "left" }}
+                      style={{ whiteSpace: "pre-wrap", textAlign: "left", padding: "20px", lineHeight: "20px" }}
                     />
                   )}
 
@@ -125,15 +152,16 @@ const ResumePreview = ({ formData }) => {
       {/* Skills */}
       {skillInfo?.skills && (
         <section className="mt-4">
-          <h5 className="section-title">SKILLS</h5>
+          <h5 className="section-title">SKILLS & HOBBIES</h5>
           <hr className="section-divider" />
           <MDEditor.Markdown
             source={skillInfo.skills}
-            style={{ whiteSpace: "pre-wrap", textAlign: "left" }}
+            style={{ whiteSpace: "pre-wrap", textAlign: "left", lineHeight: "18px" }}
           />
 
         </section>
       )}
+      </div>
     </Container>
   );
 };
