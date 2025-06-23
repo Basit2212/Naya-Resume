@@ -31,3 +31,7 @@ input {
 
 }
 
+[data-color-mode='light'] .w-md-editor {
+  --color-bg-default: #fff;
+  --color-fg-default: #000;
+}

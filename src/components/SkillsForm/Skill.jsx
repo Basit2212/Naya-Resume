@@ -15,7 +15,7 @@ const Skill = ({ formData, setFormData }) => {
               Skills & Hobbies
             </h3>
             <div className="form-group">
-              <div className="">
+              <div>
                 <MDEditor
                   value={formData.skillInfo?.skills || ''}
                   onChange={(val) =>
@@ -29,9 +29,11 @@ const Skill = ({ formData, setFormData }) => {
                   }
                   preview="edit"
                   height={180}
+                  data-color-mode="light" // ✅ Force light mode
                 />
               </div>
             </div>
+
           </div>
         </Col>
       </Row>

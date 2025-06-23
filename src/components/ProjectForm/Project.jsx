@@ -97,6 +97,7 @@ const Project = ({ formData, setFormData }) => {
                                     }}
                                     preview="edit"
                                     height={180}
+                                    data-color-mode='light'
                                 />
                                 </div>
 
