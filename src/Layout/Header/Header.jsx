@@ -44,6 +44,8 @@ function Header() {
             <NavLink to="/resume" className="nav-link">Resume</NavLink>
             <NavLink to="/about" className="nav-link">About</NavLink>
             <NavLink to="/contact" className="nav-link">Contact</NavLink>
+            <NavLink to="/signup" className="nav-link">Signup</NavLink>
+
           </div>
         </Navbar.Collapse>
       </Container>

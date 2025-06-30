@@ -10,6 +10,7 @@ import Contact from './Pages/Contact';
 import About from './Pages/About';
 import ResumePage from './Pages/ResumePage';
 import { Analytics } from '@vercel/analytics/react';
+import Signup from './Pages/SignUp_Login/Signup';
 
 function App() {
   return (
@@ -22,10 +23,14 @@ function App() {
           <Route path="/about" element={<About />} />
           <Route path="/contact" element={<Contact />} />
           <Route path="/resume" element={<ResumePage />} />
+          <Route path="/signup" element= {<Signup/>} />
+
+
         </Routes>
       </main>
 
       <Footer />
+      
       <Analytics />
     </div>
   );
