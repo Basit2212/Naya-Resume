@@ -10,10 +10,34 @@ import Contact from './Pages/Contact';
 import About from './Pages/About';
 import ResumePage from './Pages/ResumePage';
 import { Analytics } from '@vercel/analytics/react';
-import Signup from './Pages/SignUp_Login/Signup';
-import Login from './Pages/SignUp_Login/Login';
-
+import { useAuth0 } from "@auth0/auth0-react";
+import { useEffect } from "react";
 function App() {
+  const { isAuthenticated, getAccessTokenSilently } = useAuth0();
+
+  useEffect(() => {
+    let called = false;
+
+    const syncUserToDB = async () => {
+      try {
+        if (isAuthenticated && !called) {
+          called = true;
+          const token = await getAccessTokenSilently();
+          await fetch("http://localhost:4000/api/auth0/sync", {
+            method: "POST",
+            headers: {
+              Authorization: `Bearer ${token}`,
+              "Content-Type": "application/json",
+            },
+          });
+        }
+      } catch (err) {
+        console.error("Sync user failed", err);
+      }
+    };
+
+    syncUserToDB();
+  }, [isAuthenticated]);
   return (
     <div className="d-flex flex-column min-vh-100">
       <Header />
@@ -24,18 +48,14 @@ function App() {
           <Route path="/about" element={<About />} />
           <Route path="/contact" element={<Contact />} />
           <Route path="/resume" element={<ResumePage />} />
-          <Route path="/signup" element= {<Signup/>} />
-          <Route path='/login' element={<Login/>}/>
-
-
         </Routes>
       </main>
 
       <Footer />
-      
+
       <Analytics />
     </div>
   );
 }
 
-export default App; // ✅ This is what was missing
+export default App; // 

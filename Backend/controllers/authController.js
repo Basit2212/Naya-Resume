@@ -1,72 +1,34 @@
 const User = require('../models/userModel');
-const { hashPassword, comparePassword } = require('../utils/hash');
-const jwt = require('jsonwebtoken');
 
-
-const signup = async (req, res) => {
-  const { name, email, password } = req.body;
-
-  if (!name || !email || !password) {
-    return res.status(400).json({ message: 'All fields are required' });
-  }
-
+// ✅ Sync Auth0 user to MongoDB
+const syncAuth0User = async (req, res) => {
   try {
-    const existingUser = await User.findOne({ email });
-    if (existingUser) {
-      return res.status(409).json({ error: 'User already exists' });
+    const { sub, name, email, picture } = req.user;
+
+    let user = await User.findOne({ auth0Id: sub });
+
+    if (!user) {
+      user = new User({
+        auth0Id: sub,
+        name,
+        email,
+        picture,
+      });
+      await user.save();
     }
 
-    const hashed = hashPassword(password);
-    const newUser = new User({ name, email, password: hashed });
-    await newUser.save();
-
-    res.status(201).json({ message: 'User registered successfully' });
+    res.status(200).json({ message: 'User synced successfully', user });
   } catch (err) {
-    console.error(err);
-    res.status(500).json({ error: 'Server error' });
+    console.error("Auth0 Sync Error:", err);
+    res.status(500).json({ error: 'Failed to sync Auth0 user' });
   }
 };
 
 
-const login = async (req, res) => {
-  const { email, password } = req.body;
 
-  if (!email || !password)
-    return res.status(400).json({ error: 'Email and password required' });
-
-  try {
-    const user = await User.findOne({ email });
-    if (!user)
-      return res.status(404).json({ error: 'User not found' });
-
-    const isMatch = comparePassword(password, user.password);
-    if (!isMatch)
-      return res.status(401).json({ error: 'Invalid password' });
-
-    const token = jwt.sign(
-      { userId: user._id, email: user.email },
-      process.env.JWT_SECRET,
-      { expiresIn: '1h' }
-    );
-
-    res.status(200).json({
-      message: 'Login successful',
-      token,
-      user: {
-        id: user._id,
-        name: user.name,
-        email: user.email
-      }
-    });
-  } catch (err) {
-    console.error(err);
-    res.status(500).json({ error: 'Server error' });
-  }
-};
 
 const email = async (req, res) => {
   const nodemailer = require("nodemailer");
-
   const { name, email, message } = req.body;
 
   if (!name || !email || !message) {
@@ -105,4 +67,4 @@ const email = async (req, res) => {
   }
 };
 
-module.exports = { signup, login, email };
+module.exports = { syncAuth0User, email };

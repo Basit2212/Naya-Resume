@@ -2,14 +2,18 @@ const express = require('express')
 
 const router = express.Router()
 
-const {signup, login, email } = require('../controllers/authController')
+const { email, syncAuth0User } = require('../controllers/authController');
+const checkJwt = require('../middleware/authMiddleware');
+
+
+router.post('/email', email);
+
+
+router.post('/auth0/sync', checkJwt, syncAuth0User);
 
 
 
-router.post('/signup', signup)
 
-router.post('/login', login)
 
-router.post('/email', email)
 
 module.exports = router

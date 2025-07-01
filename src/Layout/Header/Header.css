@@ -7,6 +7,7 @@
   position: fixed; /* 💥 Always fixed */
   top: 0;
   left: 0;
+  color: #ffffff;
 }
 
 
@@ -120,6 +121,8 @@
 }
 
 .account {
+  outline: none;
+  border: none;
   background-color: #ff6361;
   width: auto;
   padding: 10px;

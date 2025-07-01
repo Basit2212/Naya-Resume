@@ -1,7 +1,10 @@
 .resume-page {
     background-color: #fff0f0;
     min-width: 100%;
-    height: auto;
+    height: 100%;
+    padding-top: 120px;
+    /* margin-top: 90px; */
+    padding-bottom: 30px;
 }
 .submit-btn {
   display: inline-block;
