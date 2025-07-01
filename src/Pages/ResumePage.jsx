@@ -68,7 +68,7 @@ const ResumePage = () => {
     localStorage.removeItem('resumeData');
     setFormData({
       personalInfo: {},
-      educationInfo: [{ institution: '', degree: '', field: '', startYear: '', endYear: '',}],
+      educationInfo: [{ institution: '', degree: '', field: '', startYear: '', endYear: '', }],
       experienceInfo: [{ company: '', position: '', location: '', startDate: '', endDate: '', description: '' }],
       skillInfo: {},
       projectsInfo: [{
@@ -84,7 +84,7 @@ const ResumePage = () => {
 
 
   return (
-    <div className="resume-page py-5">
+    <div className="resume-page">
       <Container>
         {!previewMode ? (
           <>
@@ -103,16 +103,16 @@ const ResumePage = () => {
             <Row>
               <Skill formData={formData} setFormData={setFormData} />
             </Row>
-  <Row className="mt-4">
-  <Col className="d-flex justify-content-center gap-3 flex-wrap">
-    <button className="submit-btn" onClick={handleSubmitAll}>
-      Submit
-    </button>
-    <button className="submit-btn danger-btn" onClick={clearForm}>
-      Clear All
-    </button>
-  </Col>
-</Row>
+            <Row className="mt-4">
+              <Col className="d-flex justify-content-center gap-3 flex-wrap">
+                <button className="submit-btn" onClick={handleSubmitAll}>
+                  Submit
+                </button>
+                <button className="submit-btn danger-btn" onClick={clearForm}>
+                  Clear All
+                </button>
+              </Col>
+            </Row>
 
 
           </>

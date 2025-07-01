@@ -11,6 +11,7 @@ import About from './Pages/About';
 import ResumePage from './Pages/ResumePage';
 import { Analytics } from '@vercel/analytics/react';
 import Signup from './Pages/SignUp_Login/Signup';
+import Login from './Pages/SignUp_Login/Login';
 
 function App() {
   return (
@@ -24,6 +25,7 @@ function App() {
           <Route path="/contact" element={<Contact />} />
           <Route path="/resume" element={<ResumePage />} />
           <Route path="/signup" element= {<Signup/>} />
+          <Route path='/login' element={<Login/>}/>
 
 
         </Routes>

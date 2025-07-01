@@ -9,7 +9,19 @@ const Contact = () => {
     formState: { errors, isSubmitSuccessful },
   } = useForm();
 
-  const onSubmit = (data) => {
+  const onSubmit = async (data) => {
+    const res = await fetch('http://localhost:4000/api/email', {
+      method: 'POST',
+      headers: {
+        "Content-Type": "application/json"
+      },
+      body: JSON.stringify(data)
+
+    })
+
+
+
+
     console.log('Form submitted:', data);
   };
 

@@ -8,10 +8,13 @@ const Home = () => {
     return (
         <>
             <Layout>
-                <CreateResumeSection />
-                <About/>
-                <Contact/>
+                <div style={{ paddingTop: '70px' }}>
+                    <CreateResumeSection />
+                    <About />
+                    <Contact />
+                </div>
             </Layout>
+
 
         </>
     )

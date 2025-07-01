@@ -1,7 +1,9 @@
 import React, { useState } from 'react'
 import { Col, Container, Row } from 'react-bootstrap'
+import { NavLink } from 'react-router-dom'; 
 
 import '../SignUp_Login/SignIn.css'
+import Login from './Login';
 
 const Signup = () => {
   const [form, setForm] = useState({
@@ -62,7 +64,7 @@ const Signup = () => {
         <button type="submit" className="btn-signup">Sign Up</button>
 
         <p className="text-center mt-3">
-          Already have an account? <a href="/login">Sign In</a>
+          Already have an account? <NavLink to='/login'>Login</NavLink>
         </p>
       </form>
     </div>
