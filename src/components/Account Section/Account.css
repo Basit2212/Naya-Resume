@@ -1,0 +1,125 @@
+.account-wrapper {
+    padding-top: 90px;
+    display: flex;
+    min-height: 100vh;
+    flex-direction: row;
+    background-color: #f4f6fa;
+}
+
+/* Hamburger button (styled to theme) */
+.hamburger-btn {
+    background-color: white;
+    border: 2px solid #ff6361;
+    color: #ff6361;
+    font-weight: 600;
+    font-size: 16px;
+    padding: 8px 16px;
+    border-radius: 6px;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.hamburger-btn:hover {
+    background-color: #ff6361;
+    color: white;
+}
+
+.account-sidebar {
+    width: 240px;
+    background: #fff;
+    border-right: 1px solid #dee2e6;
+    padding: 2rem 1rem;
+    height: 100vh;
+    transition: transform 0.3s ease;
+}
+
+.sidebar-heading {
+    font-family: 'Nunito';
+    font-size: 1.25rem;
+    font-weight: 600;
+    margin-bottom: 1.5rem;
+    color: #ff6361;
+    text-align: center;
+}
+
+.account-nav {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+}
+
+.account-link {
+    font-family: 'Nunito';
+    color: #212529;
+    text-decoration: none;
+    font-weight: 500;
+    padding: 0.6rem 1rem;
+    border-radius: 8px;
+    transition: background-color 0.2s;
+}
+
+.account-link:hover {
+    background-color: #e9ecef;
+}
+
+/* .account-link.active {
+    background-color: #ff6361;
+    color: #ffffff;
+} */
+
+.account-content {
+    flex: 1;
+    padding: 2rem;
+    background-color: #ffffff;
+    border-radius: 10px;
+    margin: 2rem;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.05);
+}
+
+/* Responsive styling */
+@media (max-width: 992px) {
+    .account-wrapper {
+        flex-direction: column;
+    }
+
+    .account-sidebar {
+        width: 100%;
+        height: auto;
+        border-right: none;
+        border-bottom: 1px solid #dee2e6;
+        transform: translateY(-100%);
+        position: absolute;
+        top: 56px;
+        left: 0;
+        z-index: 1000;
+        background-color: #fff;
+    }
+
+    .account-sidebar.open {
+        transform: translateY(0%);
+    }
+
+    .account-content {
+        padding: 1rem;
+        margin: 1rem;
+    }
+
+    .account-nav {
+        flex-direction: column;
+        gap: 0.75rem;
+    }
+
+    .sidebar-heading {
+        display: none;
+    }
+
+    .close-btn {
+        padding-top: 20px;
+        background: none;
+        border: none;
+        color: #dc3545;
+        font-size: 1.1rem;
+        font-weight: bold;
+        cursor: pointer;
+    }
+}

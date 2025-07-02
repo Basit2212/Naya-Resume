@@ -12,6 +12,9 @@ import ResumePage from './Pages/ResumePage';
 import { Analytics } from '@vercel/analytics/react';
 import { useAuth0 } from "@auth0/auth0-react";
 import { useEffect } from "react";
+
+import Setting from './components/Setting/Setting';
+import Account from './components/Account Section/Account';
 function App() {
   const { isAuthenticated, getAccessTokenSilently } = useAuth0();
 
@@ -48,6 +51,10 @@ function App() {
           <Route path="/about" element={<About />} />
           <Route path="/contact" element={<Contact />} />
           <Route path="/resume" element={<ResumePage />} />
+          <Route path='/account' element={<Account />} />
+          <Route path='setting' element={<Setting />} />
+
+
         </Routes>
       </main>
 

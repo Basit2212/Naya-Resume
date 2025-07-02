@@ -5,6 +5,7 @@ import '../Header/Header.css';
 import icon from '../../Media/resume_942748.png';
 import { useState, useEffect } from 'react';
 import { useAuth0 } from '@auth0/auth0-react';
+import { Dropdown } from 'react-bootstrap';
 
 function Header() {
   const [showNavbar, setShowNavbar] = useState(false);
@@ -44,15 +45,21 @@ function Header() {
         <div className="d-flex align-items-center gap-2">
           {!isLoading && (
             isAuthenticated ? (
-              <>
-                <span className="user-name"> {user?.name}</span>
-                <button
-                  className="account"
-                  onClick={() => logout({ returnTo: window.location.origin })}
-                >
-                  Logout
-                </button>
-              </>
+              <Dropdown align="start">
+                <Dropdown.Toggle className="account d-flex align-items-center gap-2">
+                  <i className="bi bi-person-circle"></i>
+                  <span className="user-name">{user?.name?.split(' ')[0]}</span>
+                </Dropdown.Toggle>
+
+                <Dropdown.Menu>
+                  <Dropdown.Item id='drop-down' as={NavLink} to="/account">Account</Dropdown.Item>
+                  <Dropdown.Item id='drop-down' as={NavLink} to="/setting">Settings</Dropdown.Item>
+                  <Dropdown.Divider />
+                  <Dropdown.Item id='drop-down' onClick={() => logout({ returnTo: window.location.origin })}>
+                    Logout
+                  </Dropdown.Item>
+                </Dropdown.Menu>
+              </Dropdown>
             ) : (
               <button
                 className="account"
