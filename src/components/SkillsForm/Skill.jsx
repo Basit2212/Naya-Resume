@@ -1,8 +1,19 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { Col, Container, Row } from 'react-bootstrap';
-import MDEditor from '@uiw/react-md-editor';
+import ReactQuill from 'react-quill-new';
+import 'react-quill-new/dist/quill.snow.css';
 
 const Skill = ({ formData, setFormData }) => {
+  const handleChange = (val) => {
+    setFormData({
+      ...formData,
+      skillInfo: {
+        ...formData.skillInfo,
+        skills: val,
+      },
+    });
+  };
+
   return (
     <Container className="mt-5">
       <Row>
@@ -15,25 +26,14 @@ const Skill = ({ formData, setFormData }) => {
               Skills & Hobbies
             </h3>
             <div className="form-group">
-              <div>
-                <MDEditor
-                  value={formData.skillInfo?.skills || ''}
-                  onChange={(val) =>
-                    setFormData({
-                      ...formData,
-                      skillInfo: {
-                        ...formData.skillInfo,
-                        skills: val,
-                      },
-                    })
-                  }
-                  preview="edit"
-                  height={180}
-                  data-color-mode="light" // ✅ Force light mode
-                />
-              </div>
+              <ReactQuill
+                theme="snow"
+                value={formData.skillInfo?.skills || ''}
+                onChange={handleChange}
+                placeholder="List your skills, tools, technologies or hobbies..."
+                className="quill-editor"
+              />
             </div>
-
           </div>
         </Col>
       </Row>

@@ -33,7 +33,7 @@ const Account = () => {
       <aside className={`account-sidebar ${showSidebar ? 'open' : ''}`}>
         {/* Close Button (Mobile Only) */}
         <div className="d-lg-none text-end mb-3">
-          <button className="close-btn" onClick={toggleSidebar}>❌ Close</button>
+          <button className="close-btn" onClick={toggleSidebar}><i className="bi bi-x-lg"></i> Close</button>
         </div>
 
         <h4 className="sidebar-heading d-none d-lg-block">My Account</h4>

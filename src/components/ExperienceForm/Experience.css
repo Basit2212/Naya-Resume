@@ -1,4 +1,4 @@
-.delete-btn{
+.delete-btn {
     width: 10%;
     /* padding: 14px; */
     background: #ff6361;
@@ -10,3 +10,4 @@
     box-shadow: 0 4px 12px rgba(255, 99, 97, 0.3);
     transition: background 0.3s, transform 0.2s;
 }
+

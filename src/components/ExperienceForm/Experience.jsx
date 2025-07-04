@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { Container, Row, Col } from 'react-bootstrap';
-import MDEditor from '@uiw/react-md-editor';
+import ReactQuill from 'react-quill-new';
+import 'react-quill-new/dist/quill.snow.css';
 import '../ExperienceForm/Experience.css'
 const Experience = ({ formData, setFormData }) => {
   const [value, setValue] = useState('');
@@ -105,18 +106,17 @@ const Experience = ({ formData, setFormData }) => {
                   <label className="form-label fw-semibold mb-2">
                     Description
                   </label>
-                  <div data-color-mode="light">
-                    <MDEditor
-                      value={exp.description}
-                      onChange={(val) => {
-                        const updated = [...experiences];
-                        updated[index].description = val;
-                        setExperiences(updated);
-                      }}
-                      preview="edit"
-                      height={180}
-                    />
-                  </div>
+                  <ReactQuill
+                    theme="snow"
+                    value={exp.description}
+                    onChange={(val) => {
+                      const updated = [...experiences];
+                      updated[index].description = val;
+                      setExperiences(updated);
+                    }}
+                    className="quill-editor"
+                    placeholder="Describe your responsibilities, achievements, etc."
+                  />
                 </div>
 
 

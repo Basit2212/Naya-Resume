@@ -45,18 +45,18 @@ function Header() {
         <div className="d-flex align-items-center gap-2">
           {!isLoading && (
             isAuthenticated ? (
-              <Dropdown align="start">
+              <Dropdown align="end">
                 <Dropdown.Toggle className="account d-flex align-items-center gap-2">
                   <i className="bi bi-person-circle"></i>
                   <span className="user-name">{user?.name?.split(' ')[0]}</span>
                 </Dropdown.Toggle>
 
                 <Dropdown.Menu>
-                  <Dropdown.Item id='drop-down' as={NavLink} to="/account">Account</Dropdown.Item>
-                  <Dropdown.Item id='drop-down' as={NavLink} to="/setting">Settings</Dropdown.Item>
+                  <Dropdown.Item  className='d-flex gap-2' id='drop-down' as={NavLink} to="/account"><i className="bi bi-person-circle"></i>Account</Dropdown.Item>
+                  <Dropdown.Item className='d-flex gap-2' id='drop-down' as={NavLink} to="/setting"><i className="bi bi-gear"></i>Settings</Dropdown.Item>
                   <Dropdown.Divider />
-                  <Dropdown.Item id='drop-down' onClick={() => logout({ returnTo: window.location.origin })}>
-                    Logout
+                  <Dropdown.Item className='d-flex gap-2' id='drop-down' onClick={() => logout({ returnTo: window.location.origin })}>
+                   <i className="bi bi-box-arrow-left"></i> Logout
                   </Dropdown.Item>
                 </Dropdown.Menu>
               </Dropdown>

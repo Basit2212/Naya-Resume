@@ -1,10 +1,9 @@
 import React, { useState } from 'react';
 import { Col, Container, Row } from 'react-bootstrap';
-import MDEditor from '@uiw/react-md-editor';
+import ReactQuill from 'react-quill-new';
+import 'react-quill-new/dist/quill.snow.css';
 
 const Project = ({ formData, setFormData }) => {
-    const [value, setValue] = useState('');
-
     const [projectsInfo, setProjectsInfo] = useState([
         {
             title: '',
@@ -25,6 +24,15 @@ const Project = ({ formData, setFormData }) => {
         }));
     };
 
+    const handleDescriptionChange = (index, val) => {
+        const updated = [...projectsInfo];
+        updated[index].description = val;
+        setProjectsInfo(updated);
+        setFormData((prev) => ({
+            ...prev,
+            projectsInfo: updated,
+        }));
+    };
 
     const addMore = () => {
         const newProjects = [
@@ -48,10 +56,9 @@ const Project = ({ formData, setFormData }) => {
         setProjectsInfo(filtered);
         setFormData((prev) => ({
             ...prev,
-            projectsInfo: filtered, // 
+            projectsInfo: filtered,
         }));
     };
-
 
     return (
         <Container>
@@ -61,6 +68,7 @@ const Project = ({ formData, setFormData }) => {
                         <h3 className="mb-4 text-center" style={{ fontFamily: 'var(--font-heading)', fontWeight: 'bold' }}>
                             Project & Extracurricular
                         </h3>
+
                         {projectsInfo.map((project, index) => (
                             <form className='d-grid gap-3 mb-4' key={index}>
                                 <input
@@ -87,18 +95,14 @@ const Project = ({ formData, setFormData }) => {
                                     />
                                 </div>
                                 <div className='form-group'>
-                                <label className="form-label fw-semibold mb-2">Project Description</label>
-                                <MDEditor
-                                    value={project.description}
-                                    onChange={(val) => {
-                                        const updated = [...projectsInfo];
-                                        updated[index].description = val;
-                                        setProjectsInfo(updated);
-                                    }}
-                                    preview="edit"
-                                    height={180}
-                                    data-color-mode='light'
-                                />
+                                    <label className="form-label fw-semibold mb-2">Project Description</label>
+                                    <ReactQuill
+                                        theme="snow"
+                                        value={project.description}
+                                        onChange={(val) => handleDescriptionChange(index, val)}
+                                        className="quill-editor"
+                                        placeholder="Describe your project or achievement"
+                                    />
                                 </div>
 
                                 {projectsInfo.length > 1 && (
@@ -115,6 +119,7 @@ const Project = ({ formData, setFormData }) => {
                             </form>
                         ))}
                     </div>
+
                     <div className="d-flex justify-content-center mt-2">
                         <button type="button" onClick={addMore} className="submit-btn">
                             Add More
