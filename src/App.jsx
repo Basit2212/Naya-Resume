@@ -1,7 +1,7 @@
 import 'bootstrap/dist/css/bootstrap.min.css';
 import 'bootstrap-icons/font/bootstrap-icons.css';
 import './index.css';
-import React from 'react';
+import React, { useEffect } from 'react';
 import { Routes, Route } from 'react-router-dom';
 import Home from './Pages/Home';
 import Header from './Layout/Header/Header';
@@ -11,10 +11,12 @@ import About from './Pages/About';
 import ResumePage from './Pages/ResumePage';
 import { Analytics } from '@vercel/analytics/react';
 import { useAuth0 } from "@auth0/auth0-react";
-import { useEffect } from "react";
 
-import Setting from './components/Setting/Setting';
+// Account related
 import Account from './components/Account Section/Account';
+import Setting from './components/Setting/Setting';
+import Profile from './components/Account Section/Profile';
+
 function App() {
   const { isAuthenticated, getAccessTokenSilently } = useAuth0();
 
@@ -40,7 +42,8 @@ function App() {
     };
 
     syncUserToDB();
-  }, [isAuthenticated]);
+  }, [isAuthenticated, getAccessTokenSilently]);
+
   return (
     <div className="d-flex flex-column min-vh-100">
       <Header />
@@ -51,18 +54,20 @@ function App() {
           <Route path="/about" element={<About />} />
           <Route path="/contact" element={<Contact />} />
           <Route path="/resume" element={<ResumePage />} />
-          <Route path='/account' element={<Account />} />
-          <Route path='setting' element={<Setting />} />
-
-
+            <Route path='/settings' element={<Setting/>}/>
+          {/* Nested Account Section */}
+          <Route path="/account" element={<Account />}>
+            <Route path="profile" element={<Profile />} />
+            <Route path="settings" element={<Setting />} />
+            {/* Add more account sub-routes here if needed */}
+          </Route>
         </Routes>
       </main>
 
       <Footer />
-
       <Analytics />
     </div>
   );
 }
 
-export default App; // 
+export default App;

@@ -156,3 +156,8 @@
   background-color: #ff6361;
   border-radius: 5px;
 }
+.profile-pic{
+  border-radius: 25px;
+  border: none;
+  outline: none;
+}

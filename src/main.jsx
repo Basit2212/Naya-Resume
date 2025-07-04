@@ -13,7 +13,8 @@ ReactDOM.createRoot(document.getElementById('root')).render(
       domain="dev-rxtazauvknpbta74.us.auth0.com"
       clientId="o2tcdUrwgOlDXWyscXHY77K97Ab9KWhD"
       authorizationParams={{
-        redirect_uri: window.location.origin
+        redirect_uri: window.location.origin,
+        scope: 'openid profile email' //
       }}
     >
       <BrowserRouter>

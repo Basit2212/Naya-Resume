@@ -29,9 +29,12 @@ function Header() {
   return (
     <Navbar expand="lg" className={`custom-navbar ${showNavbar ? 'scrolled' : ''}`}>
       <Container>
+        {/* Brand Logo */}
         <Navbar.Brand as={NavLink} to="/">
-          <img src={icon} alt="" /> <span>Naya Resume</span>
+          <img src={icon} alt="logo" /> <span>Naya Resume</span>
         </Navbar.Brand>
+
+        {/* Toggler for mobile */}
         <Navbar.Toggle aria-controls="basic-navbar-nav" />
         <Navbar.Collapse id="basic-navbar-nav">
           <div className="navbarCollapse m-auto d-flex gap-4">
@@ -42,30 +45,37 @@ function Header() {
           </div>
         </Navbar.Collapse>
 
+        {/* Auth Buttons */}
         <div className="d-flex align-items-center gap-2">
           {!isLoading && (
             isAuthenticated ? (
               <Dropdown align="end">
-                <Dropdown.Toggle className="account d-flex align-items-center gap-2">
-                  <i className="bi bi-person-circle"></i>
-                  <span className="user-name">{user?.name?.split(' ')[0]}</span>
+                <Dropdown.Toggle className="account d-flex align-items-center gap-2 border-0 bg-transparent">
+                  <img
+                    src={user.picture}
+                    alt="Profile"
+                    width={32}
+                    height={32}
+                    className="profile-pic"
+                  />
                 </Dropdown.Toggle>
 
                 <Dropdown.Menu>
-                  <Dropdown.Item  className='d-flex gap-2' id='drop-down' as={NavLink} to="/account"><i className="bi bi-person-circle"></i>Account</Dropdown.Item>
-                  <Dropdown.Item className='d-flex gap-2' id='drop-down' as={NavLink} to="/setting"><i className="bi bi-gear"></i>Settings</Dropdown.Item>
+                  <Dropdown.Item as={NavLink} to="/account" className="d-flex gap-2">
+                    <i className="bi bi-person-circle"></i> Account
+                  </Dropdown.Item>
+                  <Dropdown.Item as={NavLink} to="/settings " className="d-flex gap-2">
+                    <i className="bi bi-gear"></i> Settings
+                  </Dropdown.Item>
                   <Dropdown.Divider />
-                  <Dropdown.Item className='d-flex gap-2' id='drop-down' onClick={() => logout({ returnTo: window.location.origin })}>
-                   <i className="bi bi-box-arrow-left"></i> Logout
+                  <Dropdown.Item onClick={() => logout({ returnTo: window.location.origin })} className="d-flex gap-2">
+                    <i className="bi bi-box-arrow-left"></i> Logout
                   </Dropdown.Item>
                 </Dropdown.Menu>
               </Dropdown>
             ) : (
-              <button
-                className="account"
-                onClick={() => loginWithRedirect()}
-              >
-                <i className='bi bi-person'></i> Sign in
+              <button className="account" onClick={loginWithRedirect}>
+                <i className="bi bi-person"></i> Sign in
               </button>
             )
           )}
