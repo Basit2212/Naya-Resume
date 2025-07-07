@@ -14,9 +14,11 @@ ReactDOM.createRoot(document.getElementById('root')).render(
       clientId="o2tcdUrwgOlDXWyscXHY77K97Ab9KWhD"
       authorizationParams={{
         redirect_uri: window.location.origin,
-        scope: 'openid profile email' //
+        audience: "https://naya-resume-api", // ✅ MUST match backend
+        scope: "openid profile email"
       }}
     >
+
       <BrowserRouter>
         <App />
       </BrowserRouter>

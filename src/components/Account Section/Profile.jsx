@@ -6,7 +6,7 @@ import '../Account Section/Profile.css';
 const Profile = () => {
   const { user } = useAuth0();
 
-  // Controlled state for editable fields
+
   const [name, setName] = useState(user?.name || '');
 
   const handleSave = (e) => {
@@ -14,6 +14,47 @@ const Profile = () => {
     console.log("Saved name:", name);
     // TODO: send updated name to backend if needed
   };
+
+
+
+
+  const { getAccessTokenSilently, logout } = useAuth0();
+
+  const handleDelete = async () => {
+    const confirmDelete = window.confirm("Are you sure you want to delete your account?");
+    if (!confirmDelete) return;
+
+    try {
+      const token = await getAccessTokenSilently({
+        audience: "https://naya-resume-api" // Match this here too
+      });
+
+
+      const res = await fetch('http://localhost:4000/api/account/profile/delete', {
+        method: "DELETE",
+        headers: {
+          Authorization: `Bearer ${token}`,
+          "Content-Type": "application/json"
+        },
+      });
+
+      console.log("Access Token:", token);
+
+      const data = await res.json();
+
+      if (res.ok) {
+        alert("Account deleted successfully.");
+        logout({ returnTo: window.location.origin });
+      } else {
+        alert(data.message || "Failed to delete account.");
+      }
+
+    } catch (err) {
+      console.error("Delete error:", err);
+      alert("Something went wrong.");
+    }
+  };
+
 
   return (
     <Container className="mt-5">
@@ -57,17 +98,16 @@ const Profile = () => {
               <Form.Label>Email</Form.Label>
               <Form.Control
                 type="email"
-                value="************@gmail.com"
+                value={user?.email || ''}
                 disabled
               />
             </Form.Group>
 
-            <div className="d-flex justify-content-center mt-3">
-              <button className='submit-btn' type="submit">
-                Save
-              </button>
-            </div>
           </Form>
+          <div className='mt-3 text-danger fw-bold'>
+            <p>Delete</p>
+            <button onClick={handleDelete} className='submit-btn bg-danger'>Delete My Account</button>
+          </div>
         </Col>
       </Row>
     </Container>

@@ -2,7 +2,7 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import 'bootstrap-icons/font/bootstrap-icons.css';
 import './index.css';
 import React, { useEffect } from 'react';
-import { Routes, Route } from 'react-router-dom';
+import { Routes, Route, Navigate } from 'react-router-dom';
 import Home from './Pages/Home';
 import Header from './Layout/Header/Header';
 import Footer from './Layout/Footer/Footer';
@@ -14,8 +14,8 @@ import { useAuth0 } from "@auth0/auth0-react";
 
 // Account related
 import Account from './components/Account Section/Account';
-import Setting from './components/Setting/Setting';
 import Profile from './components/Account Section/Profile';
+import FAQs from './Pages/FAQs';
 
 function App() {
   const { isAuthenticated, getAccessTokenSilently } = useAuth0();
@@ -54,14 +54,15 @@ function App() {
           <Route path="/about" element={<About />} />
           <Route path="/contact" element={<Contact />} />
           <Route path="/resume" element={<ResumePage />} />
-            <Route path='/settings' element={<Setting/>}/>
-          {/* Nested Account Section */}
+          <Route path='/faqs' element={<FAQs/>}/>
+
           <Route path="/account" element={<Account />}>
+            <Route index element={<Navigate to="profile" replace />} />
             <Route path="profile" element={<Profile />} />
-            <Route path="settings" element={<Setting />} />
-            {/* Add more account sub-routes here if needed */}
+
           </Route>
         </Routes>
+
       </main>
 
       <Footer />

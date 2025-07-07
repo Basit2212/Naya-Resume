@@ -1,13 +1,13 @@
+require('dotenv').config(); // load .env variables
 const express = require('express');
 const cors = require('cors');
 const authRoutes = require('./routes/auth')
 const app = express();
-require('dotenv').config(); // load .env variables
 
 const mongoose = require('mongoose')
 const userRoutes = require('./routes/user')
 
-// app.use(cors({
+// app.use(cors({ 
 //   origin: 'https://naya-resume.vercel.app',
 //   credentials: true
 // }));

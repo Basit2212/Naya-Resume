@@ -64,9 +64,13 @@ function Header() {
                   <Dropdown.Item as={NavLink} to="/account" className="d-flex gap-2">
                     <i className="bi bi-person-circle"></i> Account
                   </Dropdown.Item>
-                  <Dropdown.Item as={NavLink} to="/settings " className="d-flex gap-2">
-                    <i className="bi bi-gear"></i> Settings
+
+                  <Dropdown.Item as={NavLink} to='/faqs' className="d-flex gap-2">
+
+                    <i className="bi bi-question-octagon"></i>FAQs
+
                   </Dropdown.Item>
+
                   <Dropdown.Divider />
                   <Dropdown.Item onClick={() => logout({ returnTo: window.location.origin })} className="d-flex gap-2">
                     <i className="bi bi-box-arrow-left"></i> Logout

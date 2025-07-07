@@ -1,9 +1,9 @@
 const User = require('../models/userModel');
 
-// ✅ Sync Auth0 user to MongoDB
+
 const syncAuth0User = async (req, res) => {
   try {
-    const { sub, name, email, picture } = req.user;
+    const { sub, name, email, picture } = req.auth;
 
     let user = await User.findOne({ auth0Id: sub });
 
@@ -22,8 +22,33 @@ const syncAuth0User = async (req, res) => {
     console.error("Auth0 Sync Error:", err);
     res.status(500).json({ error: 'Failed to sync Auth0 user' });
   }
+
 };
 
+const deleteUser = async (req, res) => {
+
+  if (!req.auth || !req.auth.sub) {
+    return res.status(401).json({ message: "Unauthorized. Token is missing or invalid." });
+  }
+
+  const { sub } = req.auth;
+
+  try {
+    const result = await User.deleteOne({ auth0Id: sub });
+
+    if (result.deletedCount === 0) {
+      return res.status(404).json({ message: "User not found." });
+    }
+
+    res.status(200).json({ message: "User deleted successfully." });
+  } catch (err) {
+    console.error("Delete error:", err);
+    res.status(500).json({ message: "Failed to delete user." });
+  }
+
+
+
+};
 
 
 
@@ -67,4 +92,6 @@ const email = async (req, res) => {
   }
 };
 
-module.exports = { syncAuth0User, email };
+
+
+module.exports = { syncAuth0User, email, deleteUser };
