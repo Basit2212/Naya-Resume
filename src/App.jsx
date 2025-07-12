@@ -12,10 +12,11 @@ import ResumePage from './Pages/ResumePage';
 import { Analytics } from '@vercel/analytics/react';
 import { useAuth0 } from "@auth0/auth0-react";
 
-// Account related
+
 import Account from './components/Account Section/Account';
 import Profile from './components/Account Section/Profile';
 import FAQs from './Pages/FAQs';
+import ResumeHistory from './components/Account Section/ResumeHistory';
 
 function App() {
   const { isAuthenticated, getAccessTokenSilently } = useAuth0();
@@ -54,11 +55,11 @@ function App() {
           <Route path="/about" element={<About />} />
           <Route path="/contact" element={<Contact />} />
           <Route path="/resume" element={<ResumePage />} />
-          <Route path='/faqs' element={<FAQs/>}/>
-
+          <Route path='/faqs' element={<FAQs />} />
           <Route path="/account" element={<Account />}>
             <Route index element={<Navigate to="profile" replace />} />
             <Route path="profile" element={<Profile />} />
+            <Route path='history' element={<ResumeHistory />} />
 
           </Route>
         </Routes>

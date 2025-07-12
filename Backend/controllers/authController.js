@@ -1,5 +1,5 @@
 const User = require('../models/userModel');
-
+const History = require('../models/HistoryModel')
 
 const syncAuth0User = async (req, res) => {
   try {
@@ -94,4 +94,57 @@ const email = async (req, res) => {
 
 
 
-module.exports = { syncAuth0User, email, deleteUser };
+const saveDownloadHistory = async (req, res) => {
+  try {
+    if (!req.auth || !req.auth.sub) {
+      return res.status(401).json({ message: "Unauthorized. Missing token or invalid." });
+    }
+
+    const { sub } = req.auth;
+    const { resumeTitle, date } = req.body;
+
+    const user = await User.findOne({ auth0Id: sub });
+
+    if (!user) {
+      return res.status(404).json({ message: "User not found." });
+    }
+
+    const historyEntry = {
+      title: resumeTitle || "Untitled Resume",
+      date: date || new Date().toISOString(),
+    };
+
+    user.history = user.history || [];
+    user.history.push(historyEntry);
+
+    await user.save();
+
+    res.status(200).json({ message: "Download history saved.", history: user.history });
+  } catch (err) {
+    console.error("Save History error:", err);
+    res.status(500).json({ message: "Failed to save history." });
+  }
+};
+
+const getDownloadHistory = async (req, res) => {
+  try {
+    if (!req.auth || !req.auth.sub) {
+      return res.status(401).json({ message: "Unauthorized. Missing token or invalid." });
+    }
+
+    const { sub } = req.auth;
+    const user = await User.findOne({ auth0Id: sub });
+
+    if (!user || !user.history) {
+      return res.status(404).json({ message: "No history found." });
+    }
+
+    res.status(200).json({ history: user.history });
+  } catch (err) {
+    console.error("Fetch history error:", err);
+    res.status(500).json({ message: "Failed to fetch history." });
+  }
+};
+
+
+module.exports = { syncAuth0User, email, deleteUser, saveDownloadHistory, getDownloadHistory };

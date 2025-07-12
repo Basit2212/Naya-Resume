@@ -7,15 +7,12 @@ const app = express();
 const mongoose = require('mongoose')
 const userRoutes = require('./routes/user')
 
-// app.use(cors({ 
-//   origin: 'https://naya-resume.vercel.app',
-//   credentials: true
-// }));
 
 app.use(cors({
-  origin: 'http://localhost:5173', // must match your frontend dev server
+  origin: 'http://localhost:5173', 
   credentials: true
 }));
+
 
 
 app.use(express.json());

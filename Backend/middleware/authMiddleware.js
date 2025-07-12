@@ -13,7 +13,16 @@ const checkJwt = jwt({
   audience: process.env.AUTH0_AUDIENCE,
   issuer: `https://${process.env.AUTH0_DOMAIN}/`,
   algorithms: ['RS256'],
-  requestProperty:'auth'
+  requestProperty: 'auth',
 });
-console.log("Auth middleware configured"); // This should show on server start
-module.exports = checkJwt;
+
+module.exports = (req, res, next) => {
+  checkJwt(req, res, (err) => {
+    if (err) {
+      console.error("JWT Error:", err);
+      return res.status(401).json({ message: "Unauthorized" });
+    }
+    console.log("✅ JWT Validated:", req.auth?.sub);
+    next();
+  });
+};

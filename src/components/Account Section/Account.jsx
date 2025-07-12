@@ -41,7 +41,7 @@ const Account = () => {
           <NavLink to="/account/profile" className="account-link d-flex gap-2" onClick={() => setShowSidebar(false)}>
             <i className="bi bi-person"></i> Profile
           </NavLink>
-          <NavLink to="/account/resumes" className="account-link d-flex gap-2" onClick={() => setShowSidebar(false)}>
+          <NavLink to="/account/history" className="account-link d-flex gap-2" onClick={() => setShowSidebar(false)}>
             <i className="bi bi-pencil"></i> My Resumes
           </NavLink>
           <NavLink className='account-link d-flex gap-2' onClick={() => logout({ returnTo: window.location.origin })}>
