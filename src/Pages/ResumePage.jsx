@@ -1,24 +1,18 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
+import { Container, Row, Col } from 'react-bootstrap';
 import { PersonalInfo } from '../components/Personal-Info/PersonalInfo';
-import './Resume.css';
-import { Container, Row, Col, } from 'react-bootstrap';
 import EducationInfo from '../components/EducationForm/EducationInfo';
 import Experience from '../components/ExperienceForm/Experience';
 import Skill from '../components/SkillsForm/Skill';
-import ResumePreview from '../components/ResumePreview/ResumePreview'
-import { useEffect } from 'react';
+import ResumePreview from '../components/ResumePreview/ResumePreview';
 import Project from '../components/ProjectForm/Project';
-
+import './Resume.css';
 
 const ResumePage = () => {
-  const [previewMode, setPreviewMode] = useState(false);
-
-  const [formData, setFormData] = useState(() => {
-    const saved = localStorage.getItem('resumeData')
-    return saved ? JSON.parse(saved) : {
-      personalInfo: {},
-
-      educationInfo: [{
+  const defaultData = {
+    personalInfo: {},
+    educationInfo: [
+      {
         institution: '',
         degree: '',
         field: '',
@@ -26,62 +20,58 @@ const ResumePage = () => {
         endYear: '',
         grade: '',
         location: '',
-      }],
-
-      experienceInfo: [{
+      },
+    ],
+    experienceInfo: [
+      {
         company: '',
         position: '',
         location: '',
         startDate: '',
         endDate: '',
         description: '',
-      }],
-
-      skillInfo: {},
-      projectsInfo: [{
+      },
+    ],
+    skillInfo: {},
+    projectsInfo: [
+      {
         title: '',
         startDate: '',
         endDate: '',
-        description: ''
-      }],
+        description: '',
+      },
+    ],
+  };
+
+  const [previewMode, setPreviewMode] = useState(false);
+  const [formData, setFormData] = useState(() => {
+    try {
+      const saved = localStorage.getItem('resumeData');
+      if (saved) {
+        const parsed = JSON.parse(saved);
+        return JSON.parse(JSON.stringify(parsed)); // ensure mutability
+      }
+    } catch (err) {
+      console.warn('Invalid resumeData in localStorage. Using defaults.');
     }
-
-
+    return defaultData;
   });
 
   useEffect(() => {
-    localStorage.setItem('resumeData', JSON.stringify(formData))
-
-
-  }, [formData])
-
-
-
+    localStorage.setItem('resumeData', JSON.stringify(formData));
+  }, [formData]);
 
   const handleSubmitAll = () => {
-
-    alert("Form submitted successfully!");
+    alert('Form submitted successfully!');
     console.log(formData);
-    setPreviewMode(true)
+    setPreviewMode(true);
   };
+
   const clearForm = () => {
     localStorage.removeItem('resumeData');
-    setFormData({
-      personalInfo: {},
-      educationInfo: [{ institution: '', degree: '', field: '', startYear: '', endYear: '', }],
-      experienceInfo: [{ company: '', position: '', location: '', startDate: '', endDate: '', description: '' }],
-      skillInfo: {},
-      projectsInfo: [{
-        title: '',
-        startDate: '',
-        endDate: '',
-        description: ''
-
-      }]
-    });
+    setFormData(defaultData);
     setPreviewMode(false);
   };
-
 
   return (
     <div className="resume-page">
@@ -113,16 +103,13 @@ const ResumePage = () => {
                 </button>
               </Col>
             </Row>
-
-
           </>
         ) : (
           <>
-
             <ResumePreview formData={formData} />
             <Row className="mt-4">
               <Col className="text-center">
-                <button className='submit-btn' onClick={() => setPreviewMode(false)}>
+                <button className="submit-btn" onClick={() => setPreviewMode(false)}>
                   Back to Edit
                 </button>
               </Col>
@@ -132,7 +119,6 @@ const ResumePage = () => {
       </Container>
     </div>
   );
-
 };
 
 export default ResumePage;
