@@ -1,24 +1,13 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { Col, Container, Row } from 'react-bootstrap';
 
 const EducationInfo = ({ formData, setFormData }) => {
-  const [educationInfo, setEducationInfo] = useState([
-    {
-      institution: '',
-      degree: '',
-      field: '',
-      startYear: '',
-      endYear: '',
-      grade: '',
-      location: '',
-    },
-  ]);
+  const educationInfo = formData.educationInfo || [];
 
   const handleChange = (index, e) => {
     const { name, value } = e.target;
     const updated = [...educationInfo];
-    updated[index][name] = value;
-    setEducationInfo(updated);
+    updated[index] = { ...updated[index], [name]: value }; // clone inner object
     setFormData((prev) => ({
       ...prev,
       educationInfo: updated,
@@ -26,17 +15,16 @@ const EducationInfo = ({ formData, setFormData }) => {
   };
 
   const addMore = () => {
-    const updated = [
-      ...educationInfo,
-      {
-        institution: '',
-        degree: '',
-        field: '',
-        startYear: '',
-        endYear: '',
-      },
-    ];
-    setEducationInfo(updated);
+    const newEntry = {
+      institution: '',
+      degree: '',
+      field: '',
+      startYear: '',
+      endYear: '',
+      grade: '',
+      location: '',
+    };
+    const updated = [...educationInfo, newEntry];
     setFormData((prev) => ({
       ...prev,
       educationInfo: updated,
@@ -45,7 +33,6 @@ const EducationInfo = ({ formData, setFormData }) => {
 
   const deleteEducation = (indexToRemove) => {
     const filtered = educationInfo.filter((_, idx) => idx !== indexToRemove);
-    setEducationInfo(filtered);
     setFormData((prev) => ({
       ...prev,
       educationInfo: filtered,

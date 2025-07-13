@@ -10,7 +10,7 @@ const ResumePreview = ({ formData }) => {
   const { personalInfo, educationInfo, experienceInfo, skillInfo, projectsInfo } = formData;
   const resumeRef = useRef();
   const { getAccessTokenSilently } = useAuth0();
-
+  
   const handleDownload = async () => {
     try {
       const token = await getAccessTokenSilently({
@@ -35,8 +35,9 @@ const ResumePreview = ({ formData }) => {
       alert("Warning: Could not save download history.");
     }
 
-    // Generate and download PDF
-    const element = resumeRef.current;
+    // Clone before generating PDF (just to avoid potential side-effects)
+    const element = resumeRef.current.cloneNode(true);
+
     const opt = {
       margin: 0.5,
       filename: 'naya-resume.pdf',
@@ -44,8 +45,10 @@ const ResumePreview = ({ formData }) => {
       html2canvas: { scale: 2 },
       jsPDF: { unit: 'in', format: 'a4', orientation: 'portrait' },
     };
+
     html2pdf().set(opt).from(element).save();
   };
+
 
   return (
     <Container className="resume-preview py-5">

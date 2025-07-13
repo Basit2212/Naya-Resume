@@ -1,58 +1,53 @@
-import React, { useState, useEffect } from 'react';
+import React from 'react';
 import { Container, Row, Col } from 'react-bootstrap';
 import ReactQuill from 'react-quill-new';
 import 'react-quill-new/dist/quill.snow.css';
-import '../ExperienceForm/Experience.css'
+import '../ExperienceForm/Experience.css';
+
 const Experience = ({ formData, setFormData }) => {
-  const [value, setValue] = useState('');
-  const [experiences, setExperiences] = useState([
-    {
+  const experiences = formData.experienceInfo || [];
+
+  const handleChange = (index, e) => {
+    const { name, value } = e.target;
+    const updated = [...experiences];
+    updated[index] = { ...updated[index], [name]: value }; // Clone inner object
+    setFormData((prev) => ({
+      ...prev,
+      experienceInfo: updated,
+    }));
+  };
+
+  const handleQuillChange = (index, value) => {
+    const updated = [...experiences];
+    updated[index] = { ...updated[index], description: value };
+    setFormData((prev) => ({
+      ...prev,
+      experienceInfo: updated,
+    }));
+  };
+
+  const addMore = () => {
+    const newExp = {
       company: '',
       position: '',
       location: '',
       startDate: '',
       endDate: '',
       description: '',
-    },
-  ]);
-
-  const handleChange = (index, e) => {
-    const { name, value } = e.target;
-    const updated = [...experiences];
-    updated[index][name] = value;
-    setExperiences(updated);
-
-  };
-
-  const addMore = () => {
-    setExperiences([
-      ...experiences,
-      {
-        company: '',
-        position: '',
-        location: '',
-        startDate: '',
-        endDate: '',
-        description: '',
-      },
-    ]);
+    };
+    setFormData((prev) => ({
+      ...prev,
+      experienceInfo: [...experiences, newExp],
+    }));
   };
 
   const deleteExperience = (indexToRemove) => {
     const filtered = experiences.filter((_, idx) => idx !== indexToRemove);
-    setExperiences(filtered);
     setFormData((prev) => ({
       ...prev,
       experienceInfo: filtered,
     }));
   };
-  useEffect(() => {
-    setFormData((prev) => ({
-      ...prev,
-      experienceInfo: experiences,
-    }));
-  }, [experiences]);
-
 
   return (
     <Container className="mt-5">
@@ -103,35 +98,27 @@ const Experience = ({ formData, setFormData }) => {
                   />
                 </div>
                 <div className="form-group">
-                  <label className="form-label fw-semibold mb-2">
-                    Description
-                  </label>
+                  <label className="form-label fw-semibold mb-2">Description</label>
                   <ReactQuill
                     theme="snow"
                     value={exp.description}
-                    onChange={(val) => {
-                      const updated = [...experiences];
-                      updated[index].description = val;
-                      setExperiences(updated);
-                    }}
+                    onChange={(val) => handleQuillChange(index, val)}
                     className="quill-editor"
                     placeholder="Describe your responsibilities, achievements, etc."
                   />
                 </div>
 
-
-
-                <div className="d-flex justify-content-end">
-                  {experiences.length > 1 && (
+                {experiences.length > 1 && (
+                  <div className="d-flex justify-content-end">
                     <button
                       type="button"
                       onClick={() => deleteExperience(index)}
                       className="delete-btn bg-danger mb-3"
                     >
-                      <i class="bi bi-trash3-fill"></i>
+                      <i className="bi bi-trash3-fill"></i>
                     </button>
-                  )}
-                </div>
+                  </div>
+                )}
               </form>
             ))}
 
