@@ -2,6 +2,8 @@ import React, { useEffect, useState } from 'react';
 import { Container, Spinner, Alert } from 'react-bootstrap';
 import { useAuth0 } from '@auth0/auth0-react';
 
+const API_BASE_URL = import.meta.env.VITE_API_BASE_URL;
+
 const ResumeHistory = () => {
   const { getAccessTokenSilently, isAuthenticated, isLoading } = useAuth0();
   const [history, setHistory] = useState([]);
@@ -15,7 +17,7 @@ const ResumeHistory = () => {
           audience: 'https://naya-resume-api',
         });
 
-        const res = await fetch('http://localhost:4000/api/history', {
+        const res = await fetch(`${API_BASE_URL}/api/history`, {
           method: 'GET',
           headers: {
             Authorization: `Bearer ${token}`,

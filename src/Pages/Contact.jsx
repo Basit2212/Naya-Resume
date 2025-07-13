@@ -9,21 +9,19 @@ const Contact = () => {
     formState: { errors, isSubmitSuccessful },
   } = useForm();
 
-  const onSubmit = async (data) => {
-    const res = await fetch('http://localhost:4000/api/email', {
-      method: 'POST',
-      headers: {
-        "Content-Type": "application/json"
-      },
-      body: JSON.stringify(data)
+ const onSubmit = async (data) => {
+  const API_BASE_URL = import.meta.env.VITE_API_BASE_URL;
+  const res = await fetch(`${API_BASE_URL}/api/email`, {
+    method: 'POST',
+    headers: {
+      "Content-Type": "application/json"
+    },
+    body: JSON.stringify(data)
+  });
 
-    })
+  console.log('Form submitted:', data);
+};
 
-
-
-
-    console.log('Form submitted:', data);
-  };
 
   return (
     <div className="contact-container">

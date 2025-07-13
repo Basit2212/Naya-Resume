@@ -10,13 +10,15 @@ const ResumePreview = ({ formData }) => {
 
   const { getAccessTokenSilently } = useAuth0();
 
+const API_BASE_URL = import.meta.env.VITE_API_BASE_URL;
+
 const handleDownload = async () => {
   try {
     const token = await getAccessTokenSilently({
       audience: "https://naya-resume-api"
     });
 
-    await fetch("http://localhost:4000/api/history", {
+    await fetch(`${API_BASE_URL}/api/history`, {
       method: "POST",
       headers: {
         Authorization: `Bearer ${token}`,
@@ -45,6 +47,7 @@ const handleDownload = async () => {
   };
   html2pdf().set(opt).from(element).save();
 };
+
 
 
   return (

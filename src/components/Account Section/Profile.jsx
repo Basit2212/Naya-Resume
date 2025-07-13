@@ -20,40 +20,40 @@ const Profile = () => {
 
   const { getAccessTokenSilently, logout } = useAuth0();
 
-  const handleDelete = async () => {
-    const confirmDelete = window.confirm("Are you sure you want to delete your account?");
-    if (!confirmDelete) return;
+const handleDelete = async () => {
+  const confirmDelete = window.confirm("Are you sure you want to delete your account?");
+  if (!confirmDelete) return;
 
-    try {
-      const token = await getAccessTokenSilently({
-        audience: "https://naya-resume-api" // Match this here too
-      });
+  try {
+    const token = await getAccessTokenSilently({
+      audience: "https://naya-resume-api"
+    });
 
+    const API_BASE_URL = import.meta.env.VITE_API_BASE_URL;
 
-      const res = await fetch('http://localhost:4000/api/account/profile/delete', {
-        method: "DELETE",
-        headers: {
-          Authorization: `Bearer ${token}`,
-          "Content-Type": "application/json"
-        },
-      });
+    const res = await fetch(`${API_BASE_URL}/api/account/profile/delete`, {
+      method: "DELETE",
+      headers: {
+        Authorization: `Bearer ${token}`,
+        "Content-Type": "application/json"
+      },
+    });
 
-      console.log("Access Token:", token);
+    const data = await res.json();
 
-      const data = await res.json();
-
-      if (res.ok) {
-        alert("Account deleted successfully.");
-        logout({ returnTo: window.location.origin });
-      } else {
-        alert(data.message || "Failed to delete account.");
-      }
-
-    } catch (err) {
-      console.error("Delete error:", err);
-      alert("Something went wrong.");
+    if (res.ok) {
+      alert("Account deleted successfully.");
+      logout({ returnTo: window.location.origin });
+    } else {
+      alert(data.message || "Failed to delete account.");
     }
-  };
+
+  } catch (err) {
+    console.error("Delete error:", err);
+    alert("Something went wrong.");
+  }
+};
+
 
 
   return (
