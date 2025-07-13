@@ -44,18 +44,20 @@ const ResumePage = () => {
   };
 
   const [previewMode, setPreviewMode] = useState(false);
-  const [formData, setFormData] = useState(() => {
+  const [formData, setFormData] = useState(defaultData);
+
+  useEffect(() => {
     try {
       const saved = localStorage.getItem('resumeData');
       if (saved) {
         const parsed = JSON.parse(saved);
-        return JSON.parse(JSON.stringify(parsed)); // ensure mutability
+        setFormData(JSON.parse(JSON.stringify(parsed))); // ensure mutability
       }
     } catch (err) {
       console.warn('Invalid resumeData in localStorage. Using defaults.');
     }
-    return defaultData;
-  });
+  }, []);
+
 
   useEffect(() => {
     localStorage.setItem('resumeData', JSON.stringify(formData));
