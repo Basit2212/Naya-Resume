@@ -13,6 +13,12 @@ const ResumeHistory = () => {
   useEffect(() => {
     const fetchHistory = async () => {
       try {
+        if (!isAuthenticated) {
+          setError('You must be logged in to view your history.');
+          setLoading(false);
+          return;
+        }
+
         const token = await getAccessTokenSilently({
           audience: 'https://naya-resume-api',
         });
@@ -39,10 +45,10 @@ const ResumeHistory = () => {
       }
     };
 
-    if (isAuthenticated && !isLoading) {
+    if (!isLoading) {
       fetchHistory();
     }
-  }, [getAccessTokenSilently, isAuthenticated, isLoading]);
+  }, [isAuthenticated, isLoading, getAccessTokenSilently]);
 
   return (
     <Container className="mt-5">
